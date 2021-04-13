@@ -1,0 +1,21 @@
+{
+    "module" : "management",
+    "version" : "1.0.0",
+    "procedures" : [
+        {
+            "id" : 45,
+            "procedure" : "Radiografía de torax",
+            "value" : 12.500
+        },
+        {
+            "id" : 23,
+            "procedure" : "Operación de costilla",
+            "value" : 43.500
+        },
+        {
+            "id" : 30,
+            "procedure" : "Hospitalización en cama x noche",
+            "value" : 11.500
+        }
+    ]
+}
