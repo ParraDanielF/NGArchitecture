@@ -1,3 +1,4 @@
+const { callService } = require('../../lib/Lambda/lambda.implementation');
 const repository = {};
 
 repository.getInvoiceData = () => {
@@ -10,7 +11,17 @@ repository.getInvoiceData = () => {
                         resolve(data);
                     }, 800);
             } else {
-                // TODO : Implement db connection use the code in lib/dynamoDB
+                const [costData, patientData, proceduresData] = await Promise.all([
+                    callService({destination : process.env.COST_SERVICE, payload : {}}),
+                    callService({destination : process.env.PATIENT_SERVICE, payload : {}}),
+                    callService({destination : process.env.CLINIC_HISTORY_SERVICE, payload : {}})
+                ]);
+
+                resolve({
+                    costData, 
+                    patientData, 
+                    proceduresData
+                });
             }
         } catch (error) {
             reject(error);
