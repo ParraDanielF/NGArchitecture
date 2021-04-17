@@ -18,9 +18,9 @@ repository.getInvoiceData = () => {
                 ]);
 
                 resolve({
-                    costData, 
-                    patientData, 
-                    proceduresData
+                    costData : costData.data, 
+                    patientData : patientData.data, 
+                    proceduresData : proceduresData.data
                 });
             }
         } catch (error) {
