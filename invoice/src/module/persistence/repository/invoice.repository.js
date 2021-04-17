@@ -1,4 +1,4 @@
-const { callService } = require('../../lib/Lambda/lambda.implementation');
+const { callService } = require('../../lib/axios/axios.implementation');
 const repository = {};
 
 repository.getInvoiceData = () => {
@@ -12,9 +12,9 @@ repository.getInvoiceData = () => {
                     }, 800);
             } else {
                 const [costData, patientData, proceduresData] = await Promise.all([
-                    callService({destination : process.env.COST_SERVICE, payload : {operation : 'getCostData'}}),
-                    callService({destination : process.env.PATIENT_SERVICE, payload : {operation : 'getPatientData'}}),
-                    callService({destination : process.env.CLINIC_HISTORY_SERVICE, payload : {operation : 'getPatientProcedures'}})
+                    callService({SERVICE_URL : process.env.COST_SERVICE, payload : {operation : 'getCostData'}}),
+                    callService({SERVICE_URL : process.env.PATIENT_SERVICE, payload : {operation : 'getPatientData'}}),
+                    callService({SERVICE_URL : process.env.CLINIC_HISTORY_SERVICE, payload : {operation : 'getPatientProcedures'}})
                 ]);
 
                 resolve({
