@@ -2,7 +2,7 @@ const { callService } = require('../../lib/Lambda/lambda.implementation');
 const repository = {};
 
 repository.getInvoiceData = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async(resolve, reject) => {
         try {
             if (process.env.USE_MOCK_DATA === 'true') {
                 setTimeout(
@@ -12,9 +12,9 @@ repository.getInvoiceData = () => {
                     }, 800);
             } else {
                 const [costData, patientData, proceduresData] = await Promise.all([
-                    callService({destination : process.env.COST_SERVICE, payload : {}}),
-                    callService({destination : process.env.PATIENT_SERVICE, payload : {}}),
-                    callService({destination : process.env.CLINIC_HISTORY_SERVICE, payload : {}})
+                    callService({destination : process.env.COST_SERVICE, payload : {operation : 'getCostData'}}),
+                    callService({destination : process.env.PATIENT_SERVICE, payload : {operation : 'getPatientData'}}),
+                    callService({destination : process.env.CLINIC_HISTORY_SERVICE, payload : {operation : 'getPatientProcedures'}})
                 ]);
 
                 resolve({

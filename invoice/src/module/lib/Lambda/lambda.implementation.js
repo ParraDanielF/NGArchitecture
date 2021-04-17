@@ -1,8 +1,9 @@
 var AWS = require('aws-sdk');
 AWS.config.region = 'us-east-1';
 var lambda = new AWS.Lambda();
+let handler = {};
 
-export const callService = data => {
+handler.callService = data => {
     return new Promise((resolve, reject) => {
 
         const params = {
@@ -26,3 +27,5 @@ export const callService = data => {
 
     });
 };
+
+module.exports = handler;
