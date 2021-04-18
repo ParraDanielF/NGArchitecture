@@ -8,6 +8,7 @@ Library    RPA.Cloud.AWS
 Library    RPA.HTTP
 
 
+
 *** Variables ***
 ${file_path} =  /home/UA/2/ArquitecturasNuevaGeneracion/Robot/NGArchitecture/RPA/factura.csv
 # -------------------------- WEBSERVICE --------------------------
@@ -18,9 +19,26 @@ ${request} =    { "operation" : "getInvoiceData" }
 ${AWS_KEY}=    SPp6bUylsk25LgnxM5BuMGKg/UwFoRwVYWjdjMmL
 ${AWS_KEY_ID}=   AKIA4VCQAFVF26RJ5IPY
 ${BUCKET_NAME}=   invoiceservices
+${REGION}=   us-east-2
+${queue_url} =    https://sqs.us-east-2.amazonaws.com/869898661195/SalidaPacientes
 
 *** Tasks ***
-Files to Table
+GENERATE INVOICE
+    # -------------------------- RECEIVE SQS MESSAGE --------------------------
+    Init Sqs Client    aws_key_id=${AWS_KEY_ID}    aws_key=${AWS_KEY}    region=${REGION}    queue_url=${queue_url}
+    ${mssg}=    Receive Message
+    ${getMessage} =    Evaluate    ${mssg} is not None
+    LOG    ${getMessage}
+    ${bodyM}=    Evaluate    json.dumps(${mssg})
+    ${receipt_handle}=    Get value from JSON    ${bodyM}    $.ReceiptHandle
+    LOG    ${bodyM}
+    Delete Message    receipt_handle=${receipt_handle}
+    # CON ESTO SE CREA EL BODY PARA CONSULTAR EL SERVICIO DEL API COMPOSITION
+    #${bodyM}=    Get value from JSON    ${bodyM}    $.Body
+    #${bodyM}=    Evaluate    json.load(${bodyM})
+    #${status}=    Get value from JSON    ${bodyM}    $.status
+    #${docToBill}=    Get value from JSON    ${bodyM}    $.user
+    #LOG    ${docToBill} -- ${status}
 
     # -------------------------- CONSUME WEBSERVICE --------------------------
     Create Session    httpbin    ${URL_WS}
@@ -72,10 +90,3 @@ Files to Table
     # -------------------------- UPLOAD FILE TO CSV --------------------------
     Init S3 Client    aws_key_id=${AWS_KEY_ID}    aws_key=${AWS_KEY}
     Upload File    ${BUCKET_NAME}    ${file_path}    Invoices${/}factura${type}${document}.csv
-
-# Debe llevar NIT, razón social, fecha de expedición de la factura, 
-# detalle, base gravable, detalle de impuestos
-# y la referencia o numeración de la factura
-# ah y expresar que es una factura
-# Porque puede ser un recibo de caja menor, o una nota crédito o en fin, debe especificar el doc
-# yyy por último especificar el régimen
