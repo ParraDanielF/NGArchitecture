@@ -2,12 +2,17 @@
 Library    RPA.Tables
 Library    RPA.FileSystem
 Library    RPA.JSON
+Library    RPA.Cloud.AWS
 Library    DateTime
 Library    Collections
+
 
 *** Variables ***
 ${file_path} =  /home/UA/2/ArquitecturasNuevaGeneracion/Robot/NGArchitecture/RPA/factura.csv
 ${json} =   {"patientData":{"module":"patient","version":"1.0.0","name":"John","lastName":"Doe","document":123123,"type":"passport","address":"Av 12 # 12 -12"},"proceduresData":{"module":"clinicHistory","version":"1.0.0","procedures":[{"id":123,"date":"12/12/2012","procedureId":45,"medicalHeadquarterId":2,"professionalId":1522,"quantity":2},{"id":124,"date":"13/12/2012","procedureId":23,"medicalHeadquarterId":2,"professionalId":1488,"quantity":1}]},"costData":{"module":"management","version":"1.0.0","procedures":[{"id":45,"procedure":"Radiografía de torax","value":12500},{"id":23,"procedure":"Operación de costilla","value":43500},{"id":30,"procedure":"Hospitalización en cama x noche","value":11500}]}}
+${AWS_KEY}=   SPp6bUylsk25LgnxM5BuMGKg/UwFoRwVYWjdjMmL
+${AWS_KEY_ID}=   AKIA4VCQAFVF26RJ5IPY
+${BUCKET_NAME}=   invoiceservices
 
 *** Tasks ***
 Files to Table
@@ -59,6 +64,11 @@ Files to Table
     ${INVOICE}=    Create table    ${InvoiceList}
     # CREATE CSV FILE
     Write table to CSV    ${INVOICE}    ${file_path}
+
+    Init S3 Client    aws_key_id=${AWS_KEY_ID}    aws_key=${AWS_KEY}
+    Upload File    ${BUCKET_NAME}    ${file_path}    Invoices${/}factura.csv
+
+
 
 
 # Debe llevar NIT, razón social, fecha de expedición de la factura, 
