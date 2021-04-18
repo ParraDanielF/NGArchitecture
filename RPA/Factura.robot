@@ -1,75 +1,77 @@
 *** Settings ***
+Library    DateTime
+Library    Collections
 Library    RPA.Tables
 Library    RPA.FileSystem
 Library    RPA.JSON
 Library    RPA.Cloud.AWS
-Library    DateTime
-Library    Collections
+Library    RPA.HTTP
 
 
 *** Variables ***
 ${file_path} =  /home/UA/2/ArquitecturasNuevaGeneracion/Robot/NGArchitecture/RPA/factura.csv
-${json} =   {"patientData":{"module":"patient","version":"1.0.0","name":"John","lastName":"Doe","document":123123,"type":"passport","address":"Av 12 # 12 -12"},"proceduresData":{"module":"clinicHistory","version":"1.0.0","procedures":[{"id":123,"date":"12/12/2012","procedureId":45,"medicalHeadquarterId":2,"professionalId":1522,"quantity":2},{"id":124,"date":"13/12/2012","procedureId":23,"medicalHeadquarterId":2,"professionalId":1488,"quantity":1}]},"costData":{"module":"management","version":"1.0.0","procedures":[{"id":45,"procedure":"Radiografía de torax","value":12500},{"id":23,"procedure":"Operación de costilla","value":43500},{"id":30,"procedure":"Hospitalización en cama x noche","value":11500}]}}
-${AWS_KEY}=   SPp6bUylsk25LgnxM5BuMGKg/UwFoRwVYWjdjMmL
+# -------------------------- WEBSERVICE --------------------------
+${URL_WS} =  https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com
+${PATH_WS} =  /prod/invoice
+${request} =    { "operation" : "getInvoiceData" }
+# -------------------------- AWS --------------------------
+${AWS_KEY}=    SPp6bUylsk25LgnxM5BuMGKg/UwFoRwVYWjdjMmL
 ${AWS_KEY_ID}=   AKIA4VCQAFVF26RJ5IPY
 ${BUCKET_NAME}=   invoiceservices
 
 *** Tasks ***
 Files to Table
-    ${date}=    Get Current Date
-    ${facturacion}=    Convert string to JSON   ${json}
 
-    # DATA IS NOT IN JSON
-    ${R}=    Create Dictionary    Nombre    NIT    Valor    12345678
-    ${R1}=    Create Dictionary    Nombre    Razon Social    Valor    ClincaABC
-    ${R2}=    Create Dictionary    Nombre    Fecha    Valor    ${date}
-    ${R3}=    Create Dictionary    Nombre    Factura de Cobro    Valor    ${1001}
+    # -------------------------- CONSUME WEBSERVICE --------------------------
+    Create Session    httpbin    ${URL_WS}
+    ${resp}=    Post Request    httpbin    ${PATH_WS}    data=${request}
+    ${facturacion}=    Set Variable    ${resp.json()}
+
+    # -------------------------- GENERATE INVOICE --------------------------
+    ${date}=    Get Current Date
     # PATIENT DATA IN JSON
     ${name}=     Get value from JSON     ${facturacion}   $.patientData.name
     ${lastName}=     Get value from JSON     ${facturacion}   $.patientData.lastName
     ${document}=     Get value from JSON     ${facturacion}   $.patientData.document
     ${type}=     Get value from JSON     ${facturacion}   $.patientData.type
     ${address}=     Get value from JSON     ${facturacion}   $.patientData.address
-    # PATIENT DATA DICTIONARIES.
-    ${R4}=    Create Dictionary    Nombre    -------INFORMACION-    Valor    -PERSONAL-------
-    ${R5}=    Create Dictionary    Nombre    Nombre    Valor    ${name}
-    ${R6}=    Create Dictionary    Nombre    Apellido    Valor    ${lastName}
-    ${R7}=    Create Dictionary    Nombre    Documento    Valor    ${document}
-    ${R8}=    Create Dictionary    Nombre    Tipo de Documento    Valor    ${type}
-    ${R9}=    Create Dictionary    Nombre    Direccion    Valor    ${address}
+    # DATA IS NOT IN JSON
+    ${N} =    Create List    NIT    Razon Social    Fecha    Factura de Cobro    -------INFORMACION-    Nombre    Apellido    Documento    Tipo Documento    Direccion    -------TRATAMIENTO-
+    ${V} =    Create List    12345678    ClincaABC    ${date}    ${type}${document}    -PERSONAL-------    ${name}    ${lastName}    ${document}    ${type}    ${address}    -COSTO-------
+    ${C} =    Create List    .....    .....    .....    .....    .....    .....    .....    .....    .....    .....    .....
+    
     # COST DATA IN JSON
-    ${R10}=    Create Dictionary    Nombre    -------TRATAMIENTO-    Valor    -COSTO-------
-    ${InvoiceList}=    Create List    ${R}    ${R1}    ${R2}    ${R3}    ${R4}    ${R5}    ${R6}    ${R7}    ${R8}    ${R9}    ${R10}
-    ${ids}=     Get values from JSON     ${facturacion}   $.costData.procedures[*].id
+    ${proceduresIds}=     Get values from JSON    ${facturacion}    $.proceduresData.procedures[*].procedureId
+    ${costsIds}=     Get values from JSON    ${facturacion}    $.costData.procedures[*].id
     ${iterator}=    Set Variable    0
-    FOR    ${id}    IN    @{ids}
-        ${procedure}=     Get value from JSON     ${facturacion}   $.costData.procedures[${iterator}].procedure
-        ${cost}=     Get value from JSON     ${facturacion}   $.costData.procedures[${iterator}].value
-        # COST DATA DICTIONARIES.
+    ${totalCost}=    Set Variable    0
+    FOR    ${id}    IN    @{proceduresIds}
+        ${costIndex} =    Evaluate    ${costsIds}.index(${id})
+        ${procedure}=     Get value from JSON     ${facturacion}   $.costData.procedures[${costIndex}].procedure
+        ${cost}=     Get value from JSON     ${facturacion}   $.costData.procedures[${costIndex}].value
+        ${quantity}     Get value from JSON     ${facturacion}   $.proceduresData.procedures[${iterator}].quantity
+        # ADD DATA TO LISTS N, V AND C.
         ${Dict}=    Create Dictionary    Nombre    ${procedure}    Valor    ${cost}
-        Append to List    ${InvoiceList}    ${Dict}
+        Append to List    ${N}    ${procedure}
+        Append to List    ${V}    ${cost}
+        Append to List    ${C}    ..${quantity}..
+        # TOTAL COST
+        ${totalCost}=    Evaluate    ${totalCost} + (${cost} * ${quantity})
         ${iterator}=    Evaluate    ${iterator} + 1
     END
-    ${R11}=    Create Dictionary    Nombre    -------------------    Valor    -------------------
-    # TOTAL COST
-    ${cost}=     Get values from JSON     ${facturacion}   $.costData.procedures[*].value
-    ${totalCost}=    Set Variable    0
-    FOR    ${c}    IN    @{cost}
-        ${totalCost}=    Evaluate    ${c} + ${totalCost}
-    END
-    ${R12}=    Create Dictionary    Nombre    -COSTO--TOTAL-    Valor    ${totalCost}
     # APPEND TO LIST LAST ROWS
-    Append to List    ${InvoiceList}    ${R11}    ${R12}
+    Append to List    ${N}    -------------------    -COSTO--TOTAL-
+    Append to List    ${V}    -------------------    ${totalCost}
+    Append to List    ${C}    .....    .....
     # CREATE TABLE
+    ${InvoiceList} =    Create Dictionary    NOMBRES    ${N}    CANTIDAD    ${C}    VALORES    ${V}
     ${INVOICE}=    Create table    ${InvoiceList}
     # CREATE CSV FILE
     Write table to CSV    ${INVOICE}    ${file_path}
-
+    
+    # -------------------------- UPLOAD FILE TO CSV --------------------------
     Init S3 Client    aws_key_id=${AWS_KEY_ID}    aws_key=${AWS_KEY}
-    Upload File    ${BUCKET_NAME}    ${file_path}    Invoices${/}factura.csv
-
-
-
+    Upload File    ${BUCKET_NAME}    ${file_path}    Invoices${/}factura${type}${document}.csv
 
 # Debe llevar NIT, razón social, fecha de expedición de la factura, 
 # detalle, base gravable, detalle de impuestos

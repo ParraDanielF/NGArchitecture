@@ -1,17 +1,16 @@
-Nombre,Valor
-NIT,12345678
-Razon Social,ClincaABC
-Fecha,2021-04-17 19:48:55.908
-Factura de Cobro,1001
--------INFORMACION-,-PERSONAL-------
-Nombre,John
-Apellido,Doe
-Documento,123123
-Tipo de Documento,passport
-Direccion,Av 12 # 12 -12
--------TRATAMIENTO-,-COSTO-------
-Radiografía de torax,12500
-Operación de costilla,43500
-Hospitalización en cama x noche,11500
--------------------,-------------------
--COSTO--TOTAL-,67500
+NOMBRES,CANTIDAD,VALORES
+NIT,.....,12345678
+Razon Social,.....,ClincaABC
+Fecha,.....,2021-04-17 23:04:39.424
+Factura de Cobro,.....,passport123123
+-------INFORMACION-,.....,-PERSONAL-------
+Nombre,.....,John
+Apellido,.....,Doe
+Documento,.....,123123
+Tipo Documento,.....,passport
+Direccion,.....,Av 12 # 12 -12
+-------TRATAMIENTO-,.....,-COSTO-------
+Radiografía de torax,..2..,12.5
+Operación de costilla,..1..,43.5
+-------------------,.....,-------------------
+-COSTO--TOTAL-,.....,68.5
