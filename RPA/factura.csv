@@ -1,7 +1,7 @@
 NOMBRES,CANTIDAD,VALORES
 NIT,.....,12345678
 Razon Social,.....,ClincaABC
-Fecha,.....,2021-04-18 16:45:01.090
+Fecha,.....,2021-04-18 19:19:01.328
 Factura de Cobro,.....,passport123123
 -------INFORMACION-,.....,-PERSONAL-------
 Nombre,.....,John
@@ -9,8 +9,8 @@ Apellido,.....,Doe
 Documento,.....,123123
 Tipo Documento,.....,passport
 Direccion,.....,Av 12 # 12 -12
--------TRATAMIENTO-,.....,-COSTO-------
+-------TRATAMIENTO-,-CANTIDAD-,-COSTO-------
 Radiografía de torax,..2..,12.5
 Operación de costilla,..1..,43.5
--------------------,.....,-------------------
+-------------------,-------------------,-------------------
 -COSTO--TOTAL-,.....,68.5
