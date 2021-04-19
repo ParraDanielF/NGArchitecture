@@ -34,7 +34,6 @@ GENERATE INVOICE
 
         # -------------------------- LOOP VALIDATION --------------------------
         ${getMessage} =    Evaluate    ${mssg} is None
-        LOG    ${getMessage}
         Exit For Loop If    ${getMessage}
 
         ${bodyM}=    Evaluate    json.dumps(${mssg})
@@ -46,11 +45,9 @@ GENERATE INVOICE
         ${bodyM}=    Evaluate    json.dumps(${bodyM})
         ${status}=    Get value from JSON    ${bodyM}    $.status
         ${docToBill}=    Get value from JSON    ${bodyM}    $.user
-        LOG    ${docToBill} -- ${status}
         
         # -------------------------- LOOP VALIDATION --------------------------
         ${getStatus} =    Evaluate    $status != $STATUS
-        LOG    ${getStatus}
         Exit For Loop If    ${getStatus}
 
         # -------------------------- CONSUME WEBSERVICE --------------------------
