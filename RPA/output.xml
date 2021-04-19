@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 4.0 (Python 3.7.7 on linux)" generated="20210418 19:18:44.200" rpa="true" schemaversion="2">
+<robot generator="Robot 4.0 (Python 3.7.7 on linux)" generated="20210418 21:07:45.318" rpa="true" schemaversion="2">
 <suite id="s1" name="Factura" source="/home/UA/2/ArquitecturasNuevaGeneracion/Robot/NGArchitecture/RPA/Factura.robot">
 <test id="s1-t1" name="GENERATE INVOICE">
 <for flavor="IN RANGE">
@@ -10,8 +10,8 @@
 <kw name="Get Current Date" library="DateTime">
 <var>${date}</var>
 <doc>Returns current local or UTC time with an optional increment.</doc>
-<msg timestamp="20210418 19:18:44.645" level="INFO">${date} = 2021-04-18 19:18:44.644</msg>
-<status status="PASS" starttime="20210418 19:18:44.644" endtime="20210418 19:18:44.645"/>
+<msg timestamp="20210418 21:07:45.774" level="INFO">${date} = 2021-04-18 21:07:45.774</msg>
+<status status="PASS" starttime="20210418 21:07:45.774" endtime="20210418 21:07:45.774"/>
 </kw>
 <kw name="Init Sqs Client" library="RPA.Cloud.AWS">
 <arg>aws_key_id=${AWS_KEY_ID}</arg>
@@ -19,67 +19,121 @@
 <arg>region=${REGION}</arg>
 <arg>queue_url=${queue_url}</arg>
 <doc>Initialize AWS SQS client</doc>
-<msg timestamp="20210418 19:18:44.645" level="INFO">Protecting keyword: rpa.cloud.aws.init_sqs_client</msg>
-<msg timestamp="20210418 19:18:44.727" level="INFO">Log level changed from NONE to INFO.</msg>
-<status status="PASS" starttime="20210418 19:18:44.645" endtime="20210418 19:18:44.727"/>
+<msg timestamp="20210418 21:07:45.775" level="INFO">Protecting keyword: rpa.cloud.aws.init_sqs_client</msg>
+<msg timestamp="20210418 21:07:45.857" level="INFO">Log level changed from NONE to INFO.</msg>
+<status status="PASS" starttime="20210418 21:07:45.774" endtime="20210418 21:07:45.857"/>
 </kw>
 <kw name="Receive Message" library="RPA.Cloud.AWS">
 <var>${mssg}</var>
 <doc>Receive message from queue</doc>
-<msg timestamp="20210418 19:18:45.345" level="INFO">${mssg} = {'MessageId': '84fb9c34-99dc-4bda-880a-45baef792a59', 'ReceiptHandle': 'AQEBl8hUseC7QykXm4TIFFKxOnCVxw4Z+Wl0LPL5h1iIe/5C75YAA8kbFpK2RqPRHrhhhQcYcdfNvIAtKXnp0E6Zqdjovojbh5Qpy60P6Tz571KKh/TbGd7xNOgj1Lfx...</msg>
-<status status="PASS" starttime="20210418 19:18:44.727" endtime="20210418 19:18:45.345"/>
+<msg timestamp="20210418 21:07:46.649" level="INFO">${mssg} = {'MessageId': 'f831000b-f922-4140-b93e-0a45bc3c846d', 'ReceiptHandle': 'AQEBV2fap+NihMflxzacGgbBbbsIWAq0jAYLMn7PTeDaDYKi+cnRcnu29yJa7uvK1Z6c4cgkrPNBciJHEE9B+32rZ9HQpI1vn2n7hRUEl7Z6ztr2bE3MHjRVh4kizl6m...</msg>
+<status status="PASS" starttime="20210418 21:07:45.857" endtime="20210418 21:07:46.649"/>
 </kw>
 <kw name="Evaluate" library="BuiltIn">
 <var>${getMessage}</var>
 <arg>${mssg} is None</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:45.346" level="INFO">${getMessage} = False</msg>
-<status status="PASS" starttime="20210418 19:18:45.345" endtime="20210418 19:18:45.346"/>
+<msg timestamp="20210418 21:07:46.653" level="INFO">${getMessage} = False</msg>
+<status status="PASS" starttime="20210418 21:07:46.651" endtime="20210418 21:07:46.653"/>
 </kw>
 <kw name="Log" library="BuiltIn">
 <arg>${getMessage}</arg>
 <doc>Logs the given message with the given level.</doc>
-<msg timestamp="20210418 19:18:45.346" level="INFO">False</msg>
-<status status="PASS" starttime="20210418 19:18:45.346" endtime="20210418 19:18:45.346"/>
+<msg timestamp="20210418 21:07:46.656" level="INFO">False</msg>
+<status status="PASS" starttime="20210418 21:07:46.654" endtime="20210418 21:07:46.656"/>
 </kw>
 <kw name="Exit For Loop If" library="BuiltIn">
 <arg>${getMessage}</arg>
 <doc>Stops executing the enclosing for loop if the ``condition`` is true.</doc>
-<status status="PASS" starttime="20210418 19:18:45.347" endtime="20210418 19:18:45.347"/>
+<status status="PASS" starttime="20210418 21:07:46.657" endtime="20210418 21:07:46.658"/>
 </kw>
 <kw name="Evaluate" library="BuiltIn">
 <var>${bodyM}</var>
 <arg>json.dumps(${mssg})</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:45.347" level="INFO">${bodyM} = {"MessageId": "84fb9c34-99dc-4bda-880a-45baef792a59", "ReceiptHandle": "AQEBl8hUseC7QykXm4TIFFKxOnCVxw4Z+Wl0LPL5h1iIe/5C75YAA8kbFpK2RqPRHrhhhQcYcdfNvIAtKXnp0E6Zqdjovojbh5Qpy60P6Tz571KKh/TbGd7xNOgj1Lfx...</msg>
-<status status="PASS" starttime="20210418 19:18:45.347" endtime="20210418 19:18:45.347"/>
+<msg timestamp="20210418 21:07:46.660" level="INFO">${bodyM} = {"MessageId": "f831000b-f922-4140-b93e-0a45bc3c846d", "ReceiptHandle": "AQEBV2fap+NihMflxzacGgbBbbsIWAq0jAYLMn7PTeDaDYKi+cnRcnu29yJa7uvK1Z6c4cgkrPNBciJHEE9B+32rZ9HQpI1vn2n7hRUEl7Z6ztr2bE3MHjRVh4kizl6m...</msg>
+<status status="PASS" starttime="20210418 21:07:46.658" endtime="20210418 21:07:46.660"/>
 </kw>
 <kw name="Get value from JSON" library="RPA.JSON">
 <var>${receipt_handle}</var>
 <arg>${bodyM}</arg>
 <arg>$.ReceiptHandle</arg>
 <doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:45.348" level="INFO">Get value from JSON with expression: "$.ReceiptHandle"</msg>
-<msg timestamp="20210418 19:18:45.370" level="INFO">${receipt_handle} = AQEBl8hUseC7QykXm4TIFFKxOnCVxw4Z+Wl0LPL5h1iIe/5C75YAA8kbFpK2RqPRHrhhhQcYcdfNvIAtKXnp0E6Zqdjovojbh5Qpy60P6Tz571KKh/TbGd7xNOgj1LfxXpCwL/bNBCpy6SJ0bn3EKW52t1wWhCSp63PzyF73TlZeNiCf6WR1fNrPo9tKaXaj6+7+u5Mb...</msg>
-<status status="PASS" starttime="20210418 19:18:45.348" endtime="20210418 19:18:45.370"/>
+<msg timestamp="20210418 21:07:46.663" level="INFO">Get value from JSON with expression: "$.ReceiptHandle"</msg>
+<msg timestamp="20210418 21:07:46.708" level="INFO">${receipt_handle} = AQEBV2fap+NihMflxzacGgbBbbsIWAq0jAYLMn7PTeDaDYKi+cnRcnu29yJa7uvK1Z6c4cgkrPNBciJHEE9B+32rZ9HQpI1vn2n7hRUEl7Z6ztr2bE3MHjRVh4kizl6m4xGvK6Q4tT/HlM2iPYzDuLckPe2ECJej1acucmL8L65zojCW1HrRXlCpzBw3N3n9Pww8s/sM...</msg>
+<status status="PASS" starttime="20210418 21:07:46.661" endtime="20210418 21:07:46.708"/>
+</kw>
+<kw name="Get value from JSON" library="RPA.JSON">
+<var>${bodyM}</var>
+<arg>${bodyM}</arg>
+<arg>$.Body</arg>
+<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
+<msg timestamp="20210418 21:07:46.709" level="INFO">Get value from JSON with expression: "$.Body"</msg>
+<msg timestamp="20210418 21:07:46.727" level="INFO">${bodyM} = {'user' : 777777777, 'status' : 'AVAILABLE_TO_BILL'}</msg>
+<status status="PASS" starttime="20210418 21:07:46.708" endtime="20210418 21:07:46.727"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${bodyM}</var>
+<arg>json.dumps(${bodyM})</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20210418 21:07:46.727" level="INFO">${bodyM} = {"user": 777777777, "status": "AVAILABLE_TO_BILL"}</msg>
+<status status="PASS" starttime="20210418 21:07:46.727" endtime="20210418 21:07:46.727"/>
+</kw>
+<kw name="Get value from JSON" library="RPA.JSON">
+<var>${status}</var>
+<arg>${bodyM}</arg>
+<arg>$.status</arg>
+<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
+<msg timestamp="20210418 21:07:46.728" level="INFO">Get value from JSON with expression: "$.status"</msg>
+<msg timestamp="20210418 21:07:46.748" level="INFO">${status} = AVAILABLE_TO_BILL</msg>
+<status status="PASS" starttime="20210418 21:07:46.727" endtime="20210418 21:07:46.748"/>
+</kw>
+<kw name="Get value from JSON" library="RPA.JSON">
+<var>${docToBill}</var>
+<arg>${bodyM}</arg>
+<arg>$.user</arg>
+<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
+<msg timestamp="20210418 21:07:46.749" level="INFO">Get value from JSON with expression: "$.user"</msg>
+<msg timestamp="20210418 21:07:46.767" level="INFO">${docToBill} = 777777777</msg>
+<status status="PASS" starttime="20210418 21:07:46.748" endtime="20210418 21:07:46.768"/>
 </kw>
 <kw name="Log" library="BuiltIn">
-<arg>${bodyM}</arg>
+<arg>${docToBill} -- ${status}</arg>
 <doc>Logs the given message with the given level.</doc>
-<msg timestamp="20210418 19:18:45.371" level="INFO">{"MessageId": "84fb9c34-99dc-4bda-880a-45baef792a59", "ReceiptHandle": "AQEBl8hUseC7QykXm4TIFFKxOnCVxw4Z+Wl0LPL5h1iIe/5C75YAA8kbFpK2RqPRHrhhhQcYcdfNvIAtKXnp0E6Zqdjovojbh5Qpy60P6Tz571KKh/TbGd7xNOgj1LfxXpCwL/bNBCpy6SJ0bn3EKW52t1wWhCSp63PzyF73TlZeNiCf6WR1fNrPo9tKaXaj6+7+u5MbMNKoLGmRGtEqWZIKsr+kksd22z1QL9PYFJWOzRWJsQFY+sTgvotXpucsrf4j875lUDw37NfGcFXllXaVB0ftmZbeyxHIBFk/5SSAR0/la1ySBKDUt2JlZfepM2rXIekWoMewb1T2It5yvqgsfPIeBgLeJ23QSVDOzFcW4PeMkYk0KEjf0tnzHzpnQZq3oEguhflYveoA6TGhGhFBaA==", "MD5OfBody": "9ea2c7412d08bdfed6c6aff774cb82a0", "Body": "{user : 1022785423, status : 'AVAILABLE_TO_BILL'}"}</msg>
-<status status="PASS" starttime="20210418 19:18:45.370" endtime="20210418 19:18:45.371"/>
+<msg timestamp="20210418 21:07:46.768" level="INFO">777777777 -- AVAILABLE_TO_BILL</msg>
+<status status="PASS" starttime="20210418 21:07:46.768" endtime="20210418 21:07:46.768"/>
 </kw>
-<kw name="Delete Message" library="RPA.Cloud.AWS">
-<arg>receipt_handle=${receipt_handle}</arg>
-<doc>Delete message in the queue</doc>
-<status status="PASS" starttime="20210418 19:18:45.371" endtime="20210418 19:18:45.482"/>
+<kw name="Evaluate" library="BuiltIn">
+<var>${getStatus}</var>
+<arg>$status != $STATUS</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20210418 21:07:46.771" level="INFO">${getStatus} = False</msg>
+<status status="PASS" starttime="20210418 21:07:46.768" endtime="20210418 21:07:46.772"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${getStatus}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20210418 21:07:46.772" level="INFO">False</msg>
+<status status="PASS" starttime="20210418 21:07:46.772" endtime="20210418 21:07:46.772"/>
+</kw>
+<kw name="Exit For Loop If" library="BuiltIn">
+<arg>${getStatus}</arg>
+<doc>Stops executing the enclosing for loop if the ``condition`` is true.</doc>
+<status status="PASS" starttime="20210418 21:07:46.772" endtime="20210418 21:07:46.772"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${request}</var>
+<arg>{ ${operation} ${docToBill}}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20210418 21:07:46.773" level="INFO">${request} = { "operation" : "getInvoiceData", "id" : 777777777}</msg>
+<status status="PASS" starttime="20210418 21:07:46.773" endtime="20210418 21:07:46.773"/>
 </kw>
 <kw name="Create Session" library="RPA.HTTP">
 <arg>httpbin</arg>
 <arg>${URL_WS}</arg>
 <doc>Create Session: create a HTTP session to a server</doc>
-<msg timestamp="20210418 19:18:45.484" level="INFO">Creating Session using : alias=httpbin, url=https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
-<status status="PASS" starttime="20210418 19:18:45.483" endtime="20210418 19:18:45.486"/>
+<msg timestamp="20210418 21:07:46.773" level="INFO">Creating Session using : alias=httpbin, url=https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210418 21:07:46.773" endtime="20210418 21:07:46.773"/>
 </kw>
 <kw name="Post Request" library="RPA.HTTP">
 <var>${resp}</var>
@@ -88,71 +142,71 @@
 <arg>data=${request}</arg>
 <doc>Send a POST request on the session object found using the
 given `alias`</doc>
-<msg timestamp="20210418 19:18:47.573" level="INFO">POST Request : url=https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com/prod/invoice 
+<msg timestamp="20210418 21:07:48.503" level="INFO">POST Request : url=https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com/prod/invoice 
  path_url=/prod/invoice 
- headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '34'} 
- body=b'{ "operation" : "getInvoiceData" }' 
+ headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '51'} 
+ body=b'{ "operation" : "getInvoiceData", "id" : 777777777}' 
  </msg>
-<msg timestamp="20210418 19:18:47.591" level="INFO">POST Response : url=https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com/prod/invoice 
+<msg timestamp="20210418 21:07:48.543" level="INFO">POST Response : url=https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com/prod/invoice 
  status=200, reason=OK 
  body={"costData":{"module":"management","version":"1.0.0","procedures":[{"id":45,"procedure":"Radiografía de torax","value":12.5},{"id":23,"procedure":"Operación de costilla","value":43.5},{"id":30,"procedure":"Hospitalización en cama x noche","value":11.5}]},"patientData":{"module":"patient","version":"1.0.0","name":"John","lastName":"Doe","document":123123,"type":"passport","address":"Av 12 # 12 -12"},"proceduresData":{"module":"clinicHistory","version":"1.0.0","procedures":[{"id":123,"date":"12/12/2012","procedureId":45,"medicalHeadquarterId":2,"professionalId":1522,"quantity":2},{"id":124,"date":"13/12/2012","procedureId":23,"medicalHeadquarterId":2,"professionalId":1488,"quantity":1}]}} 
  </msg>
-<msg timestamp="20210418 19:18:47.591" level="INFO">/usr/lib/python3.7/site-packages/urllib3/connectionpool.py:1004: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+<msg timestamp="20210418 21:07:48.543" level="INFO">/usr/lib/python3.7/site-packages/urllib3/connectionpool.py:1004: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
   InsecureRequestWarning,</msg>
-<msg timestamp="20210418 19:18:47.591" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
-<status status="PASS" starttime="20210418 19:18:45.487" endtime="20210418 19:18:47.591"/>
+<msg timestamp="20210418 21:07:48.543" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210418 21:07:46.774" endtime="20210418 21:07:48.543"/>
 </kw>
 <kw name="Set Variable" library="BuiltIn">
 <var>${facturacion}</var>
 <arg>${resp.json()}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20210418 19:18:47.593" level="INFO">${facturacion} = {'costData': {'module': 'management', 'version': '1.0.0', 'procedures': [{'id': 45, 'procedure': 'Radiografía de torax', 'value': 12.5}, {'id': 23, 'procedure': 'Operación de costilla', 'value': 43.5}...</msg>
-<status status="PASS" starttime="20210418 19:18:47.592" endtime="20210418 19:18:47.593"/>
+<msg timestamp="20210418 21:07:48.546" level="INFO">${facturacion} = {'costData': {'module': 'management', 'version': '1.0.0', 'procedures': [{'id': 45, 'procedure': 'Radiografía de torax', 'value': 12.5}, {'id': 23, 'procedure': 'Operación de costilla', 'value': 43.5}...</msg>
+<status status="PASS" starttime="20210418 21:07:48.544" endtime="20210418 21:07:48.546"/>
 </kw>
 <kw name="Get value from JSON" library="RPA.JSON">
 <var>${name}</var>
 <arg>${facturacion}</arg>
 <arg>$.patientData.name</arg>
 <doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:47.594" level="INFO">Get value from JSON with expression: "$.patientData.name"</msg>
-<msg timestamp="20210418 19:18:47.616" level="INFO">${name} = John</msg>
-<status status="PASS" starttime="20210418 19:18:47.593" endtime="20210418 19:18:47.616"/>
+<msg timestamp="20210418 21:07:48.547" level="INFO">Get value from JSON with expression: "$.patientData.name"</msg>
+<msg timestamp="20210418 21:07:48.570" level="INFO">${name} = John</msg>
+<status status="PASS" starttime="20210418 21:07:48.546" endtime="20210418 21:07:48.570"/>
 </kw>
 <kw name="Get value from JSON" library="RPA.JSON">
 <var>${lastName}</var>
 <arg>${facturacion}</arg>
 <arg>$.patientData.lastName</arg>
 <doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:47.616" level="INFO">Get value from JSON with expression: "$.patientData.lastName"</msg>
-<msg timestamp="20210418 19:18:47.635" level="INFO">${lastName} = Doe</msg>
-<status status="PASS" starttime="20210418 19:18:47.616" endtime="20210418 19:18:47.635"/>
+<msg timestamp="20210418 21:07:48.571" level="INFO">Get value from JSON with expression: "$.patientData.lastName"</msg>
+<msg timestamp="20210418 21:07:48.589" level="INFO">${lastName} = Doe</msg>
+<status status="PASS" starttime="20210418 21:07:48.570" endtime="20210418 21:07:48.589"/>
 </kw>
 <kw name="Get value from JSON" library="RPA.JSON">
 <var>${document}</var>
 <arg>${facturacion}</arg>
 <arg>$.patientData.document</arg>
 <doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:47.635" level="INFO">Get value from JSON with expression: "$.patientData.document"</msg>
-<msg timestamp="20210418 19:18:47.653" level="INFO">${document} = 123123</msg>
-<status status="PASS" starttime="20210418 19:18:47.635" endtime="20210418 19:18:47.653"/>
+<msg timestamp="20210418 21:07:48.590" level="INFO">Get value from JSON with expression: "$.patientData.document"</msg>
+<msg timestamp="20210418 21:07:48.614" level="INFO">${document} = 123123</msg>
+<status status="PASS" starttime="20210418 21:07:48.589" endtime="20210418 21:07:48.614"/>
 </kw>
 <kw name="Get value from JSON" library="RPA.JSON">
 <var>${type}</var>
 <arg>${facturacion}</arg>
 <arg>$.patientData.type</arg>
 <doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:47.654" level="INFO">Get value from JSON with expression: "$.patientData.type"</msg>
-<msg timestamp="20210418 19:18:47.671" level="INFO">${type} = passport</msg>
-<status status="PASS" starttime="20210418 19:18:47.653" endtime="20210418 19:18:47.671"/>
+<msg timestamp="20210418 21:07:48.615" level="INFO">Get value from JSON with expression: "$.patientData.type"</msg>
+<msg timestamp="20210418 21:07:48.632" level="INFO">${type} = passport</msg>
+<status status="PASS" starttime="20210418 21:07:48.614" endtime="20210418 21:07:48.632"/>
 </kw>
 <kw name="Get value from JSON" library="RPA.JSON">
 <var>${address}</var>
 <arg>${facturacion}</arg>
 <arg>$.patientData.address</arg>
 <doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:47.671" level="INFO">Get value from JSON with expression: "$.patientData.address"</msg>
-<msg timestamp="20210418 19:18:47.688" level="INFO">${address} = Av 12 # 12 -12</msg>
-<status status="PASS" starttime="20210418 19:18:47.671" endtime="20210418 19:18:47.688"/>
+<msg timestamp="20210418 21:07:48.633" level="INFO">Get value from JSON with expression: "$.patientData.address"</msg>
+<msg timestamp="20210418 21:07:48.650" level="INFO">${address} = Av 12 # 12 -12</msg>
+<status status="PASS" starttime="20210418 21:07:48.632" endtime="20210418 21:07:48.650"/>
 </kw>
 <kw name="Create List" library="BuiltIn">
 <var>${N}</var>
@@ -168,8 +222,8 @@ given `alias`</doc>
 <arg>Direccion</arg>
 <arg>-------TRATAMIENTO-</arg>
 <doc>Returns a list containing given items.</doc>
-<msg timestamp="20210418 19:18:47.689" level="INFO">${N} = ['NIT', 'Razon Social', 'Fecha', 'Factura de Cobro', '-------INFORMACION-', 'Nombre', 'Apellido', 'Documento', 'Tipo Documento', 'Direccion', '-------TRATAMIENTO-']</msg>
-<status status="PASS" starttime="20210418 19:18:47.689" endtime="20210418 19:18:47.689"/>
+<msg timestamp="20210418 21:07:48.650" level="INFO">${N} = ['NIT', 'Razon Social', 'Fecha', 'Factura de Cobro', '-------INFORMACION-', 'Nombre', 'Apellido', 'Documento', 'Tipo Documento', 'Direccion', '-------TRATAMIENTO-']</msg>
+<status status="PASS" starttime="20210418 21:07:48.650" endtime="20210418 21:07:48.650"/>
 </kw>
 <kw name="Create List" library="BuiltIn">
 <var>${V}</var>
@@ -185,8 +239,8 @@ given `alias`</doc>
 <arg>${address}</arg>
 <arg>-COSTO-------</arg>
 <doc>Returns a list containing given items.</doc>
-<msg timestamp="20210418 19:18:47.689" level="INFO">${V} = ['12345678', 'ClincaABC', '2021-04-18 19:18:44.644', 'passport123123', '-PERSONAL-------', 'John', 'Doe', 123123, 'passport', 'Av 12 # 12 -12', '-COSTO-------']</msg>
-<status status="PASS" starttime="20210418 19:18:47.689" endtime="20210418 19:18:47.690"/>
+<msg timestamp="20210418 21:07:48.651" level="INFO">${V} = ['12345678', 'ClincaABC', '2021-04-18 21:07:45.774', 'passport123123', '-PERSONAL-------', 'John', 'Doe', 123123, 'passport', 'Av 12 # 12 -12', '-COSTO-------']</msg>
+<status status="PASS" starttime="20210418 21:07:48.651" endtime="20210418 21:07:48.651"/>
 </kw>
 <kw name="Create List" library="BuiltIn">
 <var>${C}</var>
@@ -202,40 +256,40 @@ given `alias`</doc>
 <arg>.....</arg>
 <arg>-CANTIDAD-</arg>
 <doc>Returns a list containing given items.</doc>
-<msg timestamp="20210418 19:18:47.690" level="INFO">${C} = ['.....', '.....', '.....', '.....', '.....', '.....', '.....', '.....', '.....', '.....', '-CANTIDAD-']</msg>
-<status status="PASS" starttime="20210418 19:18:47.690" endtime="20210418 19:18:47.690"/>
+<msg timestamp="20210418 21:07:48.652" level="INFO">${C} = ['.....', '.....', '.....', '.....', '.....', '.....', '.....', '.....', '.....', '.....', '-CANTIDAD-']</msg>
+<status status="PASS" starttime="20210418 21:07:48.651" endtime="20210418 21:07:48.652"/>
 </kw>
 <kw name="Get values from JSON" library="RPA.JSON">
 <var>${proceduresIds}</var>
 <arg>${facturacion}</arg>
 <arg>$.proceduresData.procedures[*].procedureId</arg>
 <doc>Get all values from a JSON serializable object that match the given expression.</doc>
-<msg timestamp="20210418 19:18:47.690" level="INFO">Get values from JSON with expression: "$.proceduresData.procedures[*].procedureId"</msg>
-<msg timestamp="20210418 19:18:47.707" level="INFO">${proceduresIds} = [45, 23]</msg>
-<status status="PASS" starttime="20210418 19:18:47.690" endtime="20210418 19:18:47.707"/>
+<msg timestamp="20210418 21:07:48.652" level="INFO">Get values from JSON with expression: "$.proceduresData.procedures[*].procedureId"</msg>
+<msg timestamp="20210418 21:07:48.669" level="INFO">${proceduresIds} = [45, 23]</msg>
+<status status="PASS" starttime="20210418 21:07:48.652" endtime="20210418 21:07:48.669"/>
 </kw>
 <kw name="Get values from JSON" library="RPA.JSON">
 <var>${costsIds}</var>
 <arg>${facturacion}</arg>
 <arg>$.costData.procedures[*].id</arg>
 <doc>Get all values from a JSON serializable object that match the given expression.</doc>
-<msg timestamp="20210418 19:18:47.708" level="INFO">Get values from JSON with expression: "$.costData.procedures[*].id"</msg>
-<msg timestamp="20210418 19:18:47.724" level="INFO">${costsIds} = [45, 23, 30]</msg>
-<status status="PASS" starttime="20210418 19:18:47.707" endtime="20210418 19:18:47.725"/>
+<msg timestamp="20210418 21:07:48.670" level="INFO">Get values from JSON with expression: "$.costData.procedures[*].id"</msg>
+<msg timestamp="20210418 21:07:48.687" level="INFO">${costsIds} = [45, 23, 30]</msg>
+<status status="PASS" starttime="20210418 21:07:48.669" endtime="20210418 21:07:48.687"/>
 </kw>
 <kw name="Set Variable" library="BuiltIn">
 <var>${iterator}</var>
 <arg>0</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20210418 19:18:47.725" level="INFO">${iterator} = 0</msg>
-<status status="PASS" starttime="20210418 19:18:47.725" endtime="20210418 19:18:47.725"/>
+<msg timestamp="20210418 21:07:48.687" level="INFO">${iterator} = 0</msg>
+<status status="PASS" starttime="20210418 21:07:48.687" endtime="20210418 21:07:48.687"/>
 </kw>
 <kw name="Set Variable" library="BuiltIn">
 <var>${totalCost}</var>
 <arg>0</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20210418 19:18:47.725" level="INFO">${totalCost} = 0</msg>
-<status status="PASS" starttime="20210418 19:18:47.725" endtime="20210418 19:18:47.725"/>
+<msg timestamp="20210418 21:07:48.688" level="INFO">${totalCost} = 0</msg>
+<status status="PASS" starttime="20210418 21:07:48.688" endtime="20210418 21:07:48.688"/>
 </kw>
 <for flavor="IN">
 <var>${id}</var>
@@ -246,35 +300,35 @@ given `alias`</doc>
 <var>${costIndex}</var>
 <arg>${costsIds}.index(${id})</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:47.726" level="INFO">${costIndex} = 0</msg>
-<status status="PASS" starttime="20210418 19:18:47.726" endtime="20210418 19:18:47.726"/>
+<msg timestamp="20210418 21:07:48.689" level="INFO">${costIndex} = 0</msg>
+<status status="PASS" starttime="20210418 21:07:48.688" endtime="20210418 21:07:48.689"/>
 </kw>
 <kw name="Get value from JSON" library="RPA.JSON">
 <var>${procedure}</var>
 <arg>${facturacion}</arg>
 <arg>$.costData.procedures[${costIndex}].procedure</arg>
 <doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:47.727" level="INFO">Get value from JSON with expression: "$.costData.procedures[0].procedure"</msg>
-<msg timestamp="20210418 19:18:47.744" level="INFO">${procedure} = Radiografía de torax</msg>
-<status status="PASS" starttime="20210418 19:18:47.726" endtime="20210418 19:18:47.744"/>
+<msg timestamp="20210418 21:07:48.689" level="INFO">Get value from JSON with expression: "$.costData.procedures[0].procedure"</msg>
+<msg timestamp="20210418 21:07:48.707" level="INFO">${procedure} = Radiografía de torax</msg>
+<status status="PASS" starttime="20210418 21:07:48.689" endtime="20210418 21:07:48.707"/>
 </kw>
 <kw name="Get value from JSON" library="RPA.JSON">
 <var>${cost}</var>
 <arg>${facturacion}</arg>
 <arg>$.costData.procedures[${costIndex}].value</arg>
 <doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:47.744" level="INFO">Get value from JSON with expression: "$.costData.procedures[0].value"</msg>
-<msg timestamp="20210418 19:18:47.761" level="INFO">${cost} = 12.5</msg>
-<status status="PASS" starttime="20210418 19:18:47.744" endtime="20210418 19:18:47.761"/>
+<msg timestamp="20210418 21:07:48.708" level="INFO">Get value from JSON with expression: "$.costData.procedures[0].value"</msg>
+<msg timestamp="20210418 21:07:48.725" level="INFO">${cost} = 12.5</msg>
+<status status="PASS" starttime="20210418 21:07:48.707" endtime="20210418 21:07:48.725"/>
 </kw>
 <kw name="Get value from JSON" library="RPA.JSON">
 <var>${quantity}</var>
 <arg>${facturacion}</arg>
 <arg>$.proceduresData.procedures[${iterator}].quantity</arg>
 <doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:47.762" level="INFO">Get value from JSON with expression: "$.proceduresData.procedures[0].quantity"</msg>
-<msg timestamp="20210418 19:18:47.779" level="INFO">${quantity} = 2</msg>
-<status status="PASS" starttime="20210418 19:18:47.761" endtime="20210418 19:18:47.779"/>
+<msg timestamp="20210418 21:07:48.725" level="INFO">Get value from JSON with expression: "$.proceduresData.procedures[0].quantity"</msg>
+<msg timestamp="20210418 21:07:48.743" level="INFO">${quantity} = 2</msg>
+<status status="PASS" starttime="20210418 21:07:48.725" endtime="20210418 21:07:48.743"/>
 </kw>
 <kw name="Create Dictionary" library="BuiltIn">
 <var>${Dict}</var>
@@ -283,42 +337,42 @@ given `alias`</doc>
 <arg>Valor</arg>
 <arg>${cost}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20210418 19:18:47.780" level="INFO">${Dict} = {'Nombre': 'Radiografía de torax', 'Valor': 12.5}</msg>
-<status status="PASS" starttime="20210418 19:18:47.779" endtime="20210418 19:18:47.780"/>
+<msg timestamp="20210418 21:07:48.744" level="INFO">${Dict} = {'Nombre': 'Radiografía de torax', 'Valor': 12.5}</msg>
+<status status="PASS" starttime="20210418 21:07:48.744" endtime="20210418 21:07:48.744"/>
 </kw>
 <kw name="Append To List" library="Collections">
 <arg>${N}</arg>
 <arg>${procedure}</arg>
 <doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:47.780" endtime="20210418 19:18:47.780"/>
+<status status="PASS" starttime="20210418 21:07:48.744" endtime="20210418 21:07:48.744"/>
 </kw>
 <kw name="Append To List" library="Collections">
 <arg>${V}</arg>
 <arg>${cost}</arg>
 <doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:47.780" endtime="20210418 19:18:47.780"/>
+<status status="PASS" starttime="20210418 21:07:48.745" endtime="20210418 21:07:48.745"/>
 </kw>
 <kw name="Append To List" library="Collections">
 <arg>${C}</arg>
 <arg>..${quantity}..</arg>
 <doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:47.781" endtime="20210418 19:18:47.781"/>
+<status status="PASS" starttime="20210418 21:07:48.745" endtime="20210418 21:07:48.745"/>
 </kw>
 <kw name="Evaluate" library="BuiltIn">
 <var>${totalCost}</var>
 <arg>${totalCost} + (${cost} * ${quantity})</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:47.781" level="INFO">${totalCost} = 25.0</msg>
-<status status="PASS" starttime="20210418 19:18:47.781" endtime="20210418 19:18:47.781"/>
+<msg timestamp="20210418 21:07:48.746" level="INFO">${totalCost} = 25.0</msg>
+<status status="PASS" starttime="20210418 21:07:48.745" endtime="20210418 21:07:48.746"/>
 </kw>
 <kw name="Evaluate" library="BuiltIn">
 <var>${iterator}</var>
 <arg>${iterator} + 1</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:47.782" level="INFO">${iterator} = 1</msg>
-<status status="PASS" starttime="20210418 19:18:47.782" endtime="20210418 19:18:47.782"/>
+<msg timestamp="20210418 21:07:48.746" level="INFO">${iterator} = 1</msg>
+<status status="PASS" starttime="20210418 21:07:48.746" endtime="20210418 21:07:48.746"/>
 </kw>
-<status status="PASS" starttime="20210418 19:18:47.726" endtime="20210418 19:18:47.782"/>
+<status status="PASS" starttime="20210418 21:07:48.688" endtime="20210418 21:07:48.746"/>
 </iter>
 <iter>
 <var name="${id}">23</var>
@@ -326,35 +380,35 @@ given `alias`</doc>
 <var>${costIndex}</var>
 <arg>${costsIds}.index(${id})</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:47.783" level="INFO">${costIndex} = 1</msg>
-<status status="PASS" starttime="20210418 19:18:47.782" endtime="20210418 19:18:47.783"/>
+<msg timestamp="20210418 21:07:48.747" level="INFO">${costIndex} = 1</msg>
+<status status="PASS" starttime="20210418 21:07:48.747" endtime="20210418 21:07:48.747"/>
 </kw>
 <kw name="Get value from JSON" library="RPA.JSON">
 <var>${procedure}</var>
 <arg>${facturacion}</arg>
 <arg>$.costData.procedures[${costIndex}].procedure</arg>
 <doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:47.783" level="INFO">Get value from JSON with expression: "$.costData.procedures[1].procedure"</msg>
-<msg timestamp="20210418 19:18:47.801" level="INFO">${procedure} = Operación de costilla</msg>
-<status status="PASS" starttime="20210418 19:18:47.783" endtime="20210418 19:18:47.802"/>
+<msg timestamp="20210418 21:07:48.748" level="INFO">Get value from JSON with expression: "$.costData.procedures[1].procedure"</msg>
+<msg timestamp="20210418 21:07:48.765" level="INFO">${procedure} = Operación de costilla</msg>
+<status status="PASS" starttime="20210418 21:07:48.747" endtime="20210418 21:07:48.765"/>
 </kw>
 <kw name="Get value from JSON" library="RPA.JSON">
 <var>${cost}</var>
 <arg>${facturacion}</arg>
 <arg>$.costData.procedures[${costIndex}].value</arg>
 <doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:47.802" level="INFO">Get value from JSON with expression: "$.costData.procedures[1].value"</msg>
-<msg timestamp="20210418 19:18:47.820" level="INFO">${cost} = 43.5</msg>
-<status status="PASS" starttime="20210418 19:18:47.802" endtime="20210418 19:18:47.820"/>
+<msg timestamp="20210418 21:07:48.766" level="INFO">Get value from JSON with expression: "$.costData.procedures[1].value"</msg>
+<msg timestamp="20210418 21:07:48.783" level="INFO">${cost} = 43.5</msg>
+<status status="PASS" starttime="20210418 21:07:48.766" endtime="20210418 21:07:48.783"/>
 </kw>
 <kw name="Get value from JSON" library="RPA.JSON">
 <var>${quantity}</var>
 <arg>${facturacion}</arg>
 <arg>$.proceduresData.procedures[${iterator}].quantity</arg>
 <doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:47.820" level="INFO">Get value from JSON with expression: "$.proceduresData.procedures[1].quantity"</msg>
-<msg timestamp="20210418 19:18:47.838" level="INFO">${quantity} = 1</msg>
-<status status="PASS" starttime="20210418 19:18:47.820" endtime="20210418 19:18:47.838"/>
+<msg timestamp="20210418 21:07:48.784" level="INFO">Get value from JSON with expression: "$.proceduresData.procedures[1].quantity"</msg>
+<msg timestamp="20210418 21:07:48.801" level="INFO">${quantity} = 1</msg>
+<status status="PASS" starttime="20210418 21:07:48.783" endtime="20210418 21:07:48.801"/>
 </kw>
 <kw name="Create Dictionary" library="BuiltIn">
 <var>${Dict}</var>
@@ -363,65 +417,65 @@ given `alias`</doc>
 <arg>Valor</arg>
 <arg>${cost}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20210418 19:18:47.839" level="INFO">${Dict} = {'Nombre': 'Operación de costilla', 'Valor': 43.5}</msg>
-<status status="PASS" starttime="20210418 19:18:47.838" endtime="20210418 19:18:47.839"/>
+<msg timestamp="20210418 21:07:48.801" level="INFO">${Dict} = {'Nombre': 'Operación de costilla', 'Valor': 43.5}</msg>
+<status status="PASS" starttime="20210418 21:07:48.801" endtime="20210418 21:07:48.802"/>
 </kw>
 <kw name="Append To List" library="Collections">
 <arg>${N}</arg>
 <arg>${procedure}</arg>
 <doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:47.839" endtime="20210418 19:18:47.839"/>
+<status status="PASS" starttime="20210418 21:07:48.802" endtime="20210418 21:07:48.802"/>
 </kw>
 <kw name="Append To List" library="Collections">
 <arg>${V}</arg>
 <arg>${cost}</arg>
 <doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:47.839" endtime="20210418 19:18:47.839"/>
+<status status="PASS" starttime="20210418 21:07:48.802" endtime="20210418 21:07:48.802"/>
 </kw>
 <kw name="Append To List" library="Collections">
 <arg>${C}</arg>
 <arg>..${quantity}..</arg>
 <doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:47.840" endtime="20210418 19:18:47.840"/>
+<status status="PASS" starttime="20210418 21:07:48.802" endtime="20210418 21:07:48.803"/>
 </kw>
 <kw name="Evaluate" library="BuiltIn">
 <var>${totalCost}</var>
 <arg>${totalCost} + (${cost} * ${quantity})</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:47.840" level="INFO">${totalCost} = 68.5</msg>
-<status status="PASS" starttime="20210418 19:18:47.840" endtime="20210418 19:18:47.840"/>
+<msg timestamp="20210418 21:07:48.803" level="INFO">${totalCost} = 68.5</msg>
+<status status="PASS" starttime="20210418 21:07:48.803" endtime="20210418 21:07:48.803"/>
 </kw>
 <kw name="Evaluate" library="BuiltIn">
 <var>${iterator}</var>
 <arg>${iterator} + 1</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:47.841" level="INFO">${iterator} = 2</msg>
-<status status="PASS" starttime="20210418 19:18:47.841" endtime="20210418 19:18:47.841"/>
+<msg timestamp="20210418 21:07:48.804" level="INFO">${iterator} = 2</msg>
+<status status="PASS" starttime="20210418 21:07:48.803" endtime="20210418 21:07:48.804"/>
 </kw>
-<status status="PASS" starttime="20210418 19:18:47.782" endtime="20210418 19:18:47.841"/>
+<status status="PASS" starttime="20210418 21:07:48.747" endtime="20210418 21:07:48.804"/>
 </iter>
-<status status="PASS" starttime="20210418 19:18:47.725" endtime="20210418 19:18:47.841"/>
+<status status="PASS" starttime="20210418 21:07:48.688" endtime="20210418 21:07:48.804"/>
 </for>
 <kw name="Append To List" library="Collections">
 <arg>${N}</arg>
 <arg>-------------------</arg>
 <arg>-COSTO--TOTAL-</arg>
 <doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:47.841" endtime="20210418 19:18:47.841"/>
+<status status="PASS" starttime="20210418 21:07:48.804" endtime="20210418 21:07:48.804"/>
 </kw>
 <kw name="Append To List" library="Collections">
 <arg>${V}</arg>
 <arg>-------------------</arg>
 <arg>${totalCost}</arg>
 <doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:47.842" endtime="20210418 19:18:47.842"/>
+<status status="PASS" starttime="20210418 21:07:48.805" endtime="20210418 21:07:48.805"/>
 </kw>
 <kw name="Append To List" library="Collections">
 <arg>${C}</arg>
 <arg>-------------------</arg>
 <arg>.....</arg>
 <doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:47.842" endtime="20210418 19:18:47.842"/>
+<status status="PASS" starttime="20210418 21:07:48.805" endtime="20210418 21:07:48.805"/>
 </kw>
 <kw name="Create Dictionary" library="BuiltIn">
 <var>${InvoiceList}</var>
@@ -432,47 +486,47 @@ given `alias`</doc>
 <arg>VALORES</arg>
 <arg>${V}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20210418 19:18:47.843" level="INFO">${InvoiceList} = {'NOMBRES': ['NIT', 'Razon Social', 'Fecha', 'Factura de Cobro', '-------INFORMACION-', 'Nombre', 'Apellido', 'Documento', 'Tipo Documento', 'Direccion', '-------TRATAMIENTO-', 'Radiografía de torax',...</msg>
-<status status="PASS" starttime="20210418 19:18:47.842" endtime="20210418 19:18:47.843"/>
+<msg timestamp="20210418 21:07:48.806" level="INFO">${InvoiceList} = {'NOMBRES': ['NIT', 'Razon Social', 'Fecha', 'Factura de Cobro', '-------INFORMACION-', 'Nombre', 'Apellido', 'Documento', 'Tipo Documento', 'Direccion', '-------TRATAMIENTO-', 'Radiografía de torax',...</msg>
+<status status="PASS" starttime="20210418 21:07:48.805" endtime="20210418 21:07:48.806"/>
 </kw>
 <kw name="Create Table" library="RPA.Tables">
 <var>${INVOICE}</var>
 <arg>${InvoiceList}</arg>
 <doc>Create Table object from data.</doc>
-<msg timestamp="20210418 19:18:47.843" level="INFO">Created table: Table(columns=['NOMBRES', 'CANTIDAD', 'VALORES'], rows=15)</msg>
-<msg timestamp="20210418 19:18:47.843" level="INFO">${INVOICE} = Table(columns=['NOMBRES', 'CANTIDAD', 'VALORES'], rows=15)</msg>
-<status status="PASS" starttime="20210418 19:18:47.843" endtime="20210418 19:18:47.843"/>
+<msg timestamp="20210418 21:07:48.807" level="INFO">Created table: Table(columns=['NOMBRES', 'CANTIDAD', 'VALORES'], rows=15)</msg>
+<msg timestamp="20210418 21:07:48.807" level="INFO">${INVOICE} = Table(columns=['NOMBRES', 'CANTIDAD', 'VALORES'], rows=15)</msg>
+<status status="PASS" starttime="20210418 21:07:48.806" endtime="20210418 21:07:48.807"/>
 </kw>
 <kw name="Write Table To Csv" library="RPA.Tables">
 <arg>${INVOICE}</arg>
 <arg>${file_path}</arg>
 <doc>Write a table as a CSV file.</doc>
-<status status="PASS" starttime="20210418 19:18:47.844" endtime="20210418 19:18:47.844"/>
+<status status="PASS" starttime="20210418 21:07:48.807" endtime="20210418 21:07:48.808"/>
 </kw>
 <kw name="Init S3 Client" library="RPA.Cloud.AWS">
 <arg>aws_key_id=${AWS_KEY_ID}</arg>
 <arg>aws_key=${AWS_KEY}</arg>
 <doc>Initialize AWS S3 client</doc>
-<msg timestamp="20210418 19:18:47.845" level="INFO">Protecting keyword: rpa.cloud.aws.init_s3_client</msg>
-<msg timestamp="20210418 19:18:47.870" level="INFO">Log level changed from NONE to INFO.</msg>
-<status status="PASS" starttime="20210418 19:18:47.845" endtime="20210418 19:18:47.870"/>
+<msg timestamp="20210418 21:07:48.808" level="INFO">Protecting keyword: rpa.cloud.aws.init_s3_client</msg>
+<msg timestamp="20210418 21:07:48.831" level="INFO">Log level changed from NONE to INFO.</msg>
+<status status="PASS" starttime="20210418 21:07:48.808" endtime="20210418 21:07:48.831"/>
 </kw>
 <kw name="Upload File" library="RPA.Cloud.AWS">
 <arg>${BUCKET_NAME}</arg>
 <arg>${file_path}</arg>
 <arg>Invoices${/}factura${type}${document}${date}.csv</arg>
 <doc>Upload single file into bucket</doc>
-<status status="PASS" starttime="20210418 19:18:47.870" endtime="20210418 19:18:49.347"/>
+<status status="PASS" starttime="20210418 21:07:48.831" endtime="20210418 21:07:50.241"/>
 </kw>
-<status status="PASS" starttime="20210418 19:18:44.589" endtime="20210418 19:18:49.348"/>
+<status status="PASS" starttime="20210418 21:07:45.718" endtime="20210418 21:07:50.242"/>
 </iter>
 <iter>
 <var name="${i}">1</var>
 <kw name="Get Current Date" library="DateTime">
 <var>${date}</var>
 <doc>Returns current local or UTC time with an optional increment.</doc>
-<msg timestamp="20210418 19:18:49.351" level="INFO">${date} = 2021-04-18 19:18:49.350</msg>
-<status status="PASS" starttime="20210418 19:18:49.350" endtime="20210418 19:18:49.351"/>
+<msg timestamp="20210418 21:07:50.246" level="INFO">${date} = 2021-04-18 21:07:50.246</msg>
+<status status="PASS" starttime="20210418 21:07:50.245" endtime="20210418 21:07:50.246"/>
 </kw>
 <kw name="Init Sqs Client" library="RPA.Cloud.AWS">
 <arg>aws_key_id=${AWS_KEY_ID}</arg>
@@ -480,1892 +534,48 @@ given `alias`</doc>
 <arg>region=${REGION}</arg>
 <arg>queue_url=${queue_url}</arg>
 <doc>Initialize AWS SQS client</doc>
-<msg timestamp="20210418 19:18:49.351" level="INFO">Protecting keyword: rpa.cloud.aws.init_sqs_client</msg>
-<msg timestamp="20210418 19:18:49.360" level="INFO">Log level changed from NONE to INFO.</msg>
-<status status="PASS" starttime="20210418 19:18:49.351" endtime="20210418 19:18:49.359"/>
+<msg timestamp="20210418 21:07:50.247" level="INFO">Protecting keyword: rpa.cloud.aws.init_sqs_client</msg>
+<msg timestamp="20210418 21:07:50.254" level="INFO">Log level changed from NONE to INFO.</msg>
+<status status="PASS" starttime="20210418 21:07:50.246" endtime="20210418 21:07:50.253"/>
 </kw>
 <kw name="Receive Message" library="RPA.Cloud.AWS">
 <var>${mssg}</var>
 <doc>Receive message from queue</doc>
-<msg timestamp="20210418 19:18:49.971" level="INFO">${mssg} = {'MessageId': '8dcf1f3c-8b8e-4ab3-b195-4e7878dda3a4', 'ReceiptHandle': 'AQEBYvjjJO5/w6UTWOfaAhiNVwbfRazf+gV4Rc4tcjAH9Zpu1chKIUduyFIJLsc3nf43mVguaAbVcR2U6Fcg0m2ts90Y7TXNnELP2eNpRcvPNjxlSw637CEfidNwn0Ui...</msg>
-<status status="PASS" starttime="20210418 19:18:49.360" endtime="20210418 19:18:49.971"/>
+<msg timestamp="20210418 21:07:50.941" level="INFO">${mssg} = None</msg>
+<status status="PASS" starttime="20210418 21:07:50.254" endtime="20210418 21:07:50.941"/>
 </kw>
 <kw name="Evaluate" library="BuiltIn">
 <var>${getMessage}</var>
 <arg>${mssg} is None</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:49.973" level="INFO">${getMessage} = False</msg>
-<status status="PASS" starttime="20210418 19:18:49.972" endtime="20210418 19:18:49.973"/>
+<msg timestamp="20210418 21:07:50.943" level="INFO">${getMessage} = True</msg>
+<status status="PASS" starttime="20210418 21:07:50.942" endtime="20210418 21:07:50.943"/>
 </kw>
 <kw name="Log" library="BuiltIn">
 <arg>${getMessage}</arg>
 <doc>Logs the given message with the given level.</doc>
-<msg timestamp="20210418 19:18:49.974" level="INFO">False</msg>
-<status status="PASS" starttime="20210418 19:18:49.973" endtime="20210418 19:18:49.974"/>
+<msg timestamp="20210418 21:07:50.943" level="INFO">True</msg>
+<status status="PASS" starttime="20210418 21:07:50.943" endtime="20210418 21:07:50.944"/>
 </kw>
 <kw name="Exit For Loop If" library="BuiltIn">
 <arg>${getMessage}</arg>
 <doc>Stops executing the enclosing for loop if the ``condition`` is true.</doc>
-<status status="PASS" starttime="20210418 19:18:49.974" endtime="20210418 19:18:49.974"/>
+<msg timestamp="20210418 21:07:50.944" level="INFO">Exiting for loop altogether.</msg>
+<status status="PASS" starttime="20210418 21:07:50.944" endtime="20210418 21:07:50.944"/>
 </kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${bodyM}</var>
-<arg>json.dumps(${mssg})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:49.975" level="INFO">${bodyM} = {"MessageId": "8dcf1f3c-8b8e-4ab3-b195-4e7878dda3a4", "ReceiptHandle": "AQEBYvjjJO5/w6UTWOfaAhiNVwbfRazf+gV4Rc4tcjAH9Zpu1chKIUduyFIJLsc3nf43mVguaAbVcR2U6Fcg0m2ts90Y7TXNnELP2eNpRcvPNjxlSw637CEfidNwn0Ui...</msg>
-<status status="PASS" starttime="20210418 19:18:49.975" endtime="20210418 19:18:49.975"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${receipt_handle}</var>
-<arg>${bodyM}</arg>
-<arg>$.ReceiptHandle</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:49.976" level="INFO">Get value from JSON with expression: "$.ReceiptHandle"</msg>
-<msg timestamp="20210418 19:18:50.001" level="INFO">${receipt_handle} = AQEBYvjjJO5/w6UTWOfaAhiNVwbfRazf+gV4Rc4tcjAH9Zpu1chKIUduyFIJLsc3nf43mVguaAbVcR2U6Fcg0m2ts90Y7TXNnELP2eNpRcvPNjxlSw637CEfidNwn0UiIherH3SwuCTGyE3mViv5HUqtiEWlh8IksqK8rE/rBpds1VfNHSydqvG5zyhJichUC/DvfMDb...</msg>
-<status status="PASS" starttime="20210418 19:18:49.976" endtime="20210418 19:18:50.001"/>
-</kw>
-<kw name="Log" library="BuiltIn">
-<arg>${bodyM}</arg>
-<doc>Logs the given message with the given level.</doc>
-<msg timestamp="20210418 19:18:50.002" level="INFO">{"MessageId": "8dcf1f3c-8b8e-4ab3-b195-4e7878dda3a4", "ReceiptHandle": "AQEBYvjjJO5/w6UTWOfaAhiNVwbfRazf+gV4Rc4tcjAH9Zpu1chKIUduyFIJLsc3nf43mVguaAbVcR2U6Fcg0m2ts90Y7TXNnELP2eNpRcvPNjxlSw637CEfidNwn0UiIherH3SwuCTGyE3mViv5HUqtiEWlh8IksqK8rE/rBpds1VfNHSydqvG5zyhJichUC/DvfMDbSP+6l3UIopgx9lqxhlL/c27KvIPYUrICGZ+htlg2rYELxIEi6Z40P+JbI40nMKWslSMkq19hswEvHbA0pmy0BnqB060VWtELajezYqS/VQMeg1GU3bzJaBCc0Flt/X02L5L0y4Duy4aF6KhdvMlsf1V17FaZlYYWbYPBC5lHnblEWVQOwYnpBQCDmSHl0YhyTlRfq7TR3aFMkiU/7Q==", "MD5OfBody": "9ea2c7412d08bdfed6c6aff774cb82a0", "Body": "{user : 1022785423, status : 'AVAILABLE_TO_BILL'}"}</msg>
-<status status="PASS" starttime="20210418 19:18:50.001" endtime="20210418 19:18:50.002"/>
-</kw>
-<kw name="Delete Message" library="RPA.Cloud.AWS">
-<arg>receipt_handle=${receipt_handle}</arg>
-<doc>Delete message in the queue</doc>
-<status status="PASS" starttime="20210418 19:18:50.002" endtime="20210418 19:18:50.114"/>
-</kw>
-<kw name="Create Session" library="RPA.HTTP">
-<arg>httpbin</arg>
-<arg>${URL_WS}</arg>
-<doc>Create Session: create a HTTP session to a server</doc>
-<msg timestamp="20210418 19:18:50.116" level="INFO">Creating Session using : alias=httpbin, url=https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
-<status status="PASS" starttime="20210418 19:18:50.115" endtime="20210418 19:18:50.117"/>
-</kw>
-<kw name="Post Request" library="RPA.HTTP">
-<var>${resp}</var>
-<arg>httpbin</arg>
-<arg>${PATH_WS}</arg>
-<arg>data=${request}</arg>
-<doc>Send a POST request on the session object found using the
-given `alias`</doc>
-<msg timestamp="20210418 19:18:51.798" level="INFO">POST Request : url=https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com/prod/invoice 
- path_url=/prod/invoice 
- headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '34'} 
- body=b'{ "operation" : "getInvoiceData" }' 
- </msg>
-<msg timestamp="20210418 19:18:51.817" level="INFO">POST Response : url=https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com/prod/invoice 
- status=200, reason=OK 
- body={"costData":{"module":"management","version":"1.0.0","procedures":[{"id":45,"procedure":"Radiografía de torax","value":12.5},{"id":23,"procedure":"Operación de costilla","value":43.5},{"id":30,"procedure":"Hospitalización en cama x noche","value":11.5}]},"patientData":{"module":"patient","version":"1.0.0","name":"John","lastName":"Doe","document":123123,"type":"passport","address":"Av 12 # 12 -12"},"proceduresData":{"module":"clinicHistory","version":"1.0.0","procedures":[{"id":123,"date":"12/12/2012","procedureId":45,"medicalHeadquarterId":2,"professionalId":1522,"quantity":2},{"id":124,"date":"13/12/2012","procedureId":23,"medicalHeadquarterId":2,"professionalId":1488,"quantity":1}]}} 
- </msg>
-<msg timestamp="20210418 19:18:51.817" level="INFO">/usr/lib/python3.7/site-packages/urllib3/connectionpool.py:1004: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
-  InsecureRequestWarning,</msg>
-<msg timestamp="20210418 19:18:51.818" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
-<status status="PASS" starttime="20210418 19:18:50.118" endtime="20210418 19:18:51.818"/>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<var>${facturacion}</var>
-<arg>${resp.json()}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20210418 19:18:51.820" level="INFO">${facturacion} = {'costData': {'module': 'management', 'version': '1.0.0', 'procedures': [{'id': 45, 'procedure': 'Radiografía de torax', 'value': 12.5}, {'id': 23, 'procedure': 'Operación de costilla', 'value': 43.5}...</msg>
-<status status="PASS" starttime="20210418 19:18:51.818" endtime="20210418 19:18:51.820"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${name}</var>
-<arg>${facturacion}</arg>
-<arg>$.patientData.name</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:51.821" level="INFO">Get value from JSON with expression: "$.patientData.name"</msg>
-<msg timestamp="20210418 19:18:51.842" level="INFO">${name} = John</msg>
-<status status="PASS" starttime="20210418 19:18:51.820" endtime="20210418 19:18:51.842"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${lastName}</var>
-<arg>${facturacion}</arg>
-<arg>$.patientData.lastName</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:51.843" level="INFO">Get value from JSON with expression: "$.patientData.lastName"</msg>
-<msg timestamp="20210418 19:18:51.861" level="INFO">${lastName} = Doe</msg>
-<status status="PASS" starttime="20210418 19:18:51.843" endtime="20210418 19:18:51.861"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${document}</var>
-<arg>${facturacion}</arg>
-<arg>$.patientData.document</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:51.862" level="INFO">Get value from JSON with expression: "$.patientData.document"</msg>
-<msg timestamp="20210418 19:18:51.879" level="INFO">${document} = 123123</msg>
-<status status="PASS" starttime="20210418 19:18:51.861" endtime="20210418 19:18:51.879"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${type}</var>
-<arg>${facturacion}</arg>
-<arg>$.patientData.type</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:51.879" level="INFO">Get value from JSON with expression: "$.patientData.type"</msg>
-<msg timestamp="20210418 19:18:51.896" level="INFO">${type} = passport</msg>
-<status status="PASS" starttime="20210418 19:18:51.879" endtime="20210418 19:18:51.897"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${address}</var>
-<arg>${facturacion}</arg>
-<arg>$.patientData.address</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:51.897" level="INFO">Get value from JSON with expression: "$.patientData.address"</msg>
-<msg timestamp="20210418 19:18:51.993" level="INFO">${address} = Av 12 # 12 -12</msg>
-<status status="PASS" starttime="20210418 19:18:51.897" endtime="20210418 19:18:51.993"/>
-</kw>
-<kw name="Create List" library="BuiltIn">
-<var>${N}</var>
-<arg>NIT</arg>
-<arg>Razon Social</arg>
-<arg>Fecha</arg>
-<arg>Factura de Cobro</arg>
-<arg>-------INFORMACION-</arg>
-<arg>Nombre</arg>
-<arg>Apellido</arg>
-<arg>Documento</arg>
-<arg>Tipo Documento</arg>
-<arg>Direccion</arg>
-<arg>-------TRATAMIENTO-</arg>
-<doc>Returns a list containing given items.</doc>
-<msg timestamp="20210418 19:18:51.993" level="INFO">${N} = ['NIT', 'Razon Social', 'Fecha', 'Factura de Cobro', '-------INFORMACION-', 'Nombre', 'Apellido', 'Documento', 'Tipo Documento', 'Direccion', '-------TRATAMIENTO-']</msg>
-<status status="PASS" starttime="20210418 19:18:51.993" endtime="20210418 19:18:51.993"/>
-</kw>
-<kw name="Create List" library="BuiltIn">
-<var>${V}</var>
-<arg>12345678</arg>
-<arg>ClincaABC</arg>
-<arg>${date}</arg>
-<arg>${type}${document}</arg>
-<arg>-PERSONAL-------</arg>
-<arg>${name}</arg>
-<arg>${lastName}</arg>
-<arg>${document}</arg>
-<arg>${type}</arg>
-<arg>${address}</arg>
-<arg>-COSTO-------</arg>
-<doc>Returns a list containing given items.</doc>
-<msg timestamp="20210418 19:18:51.994" level="INFO">${V} = ['12345678', 'ClincaABC', '2021-04-18 19:18:49.350', 'passport123123', '-PERSONAL-------', 'John', 'Doe', 123123, 'passport', 'Av 12 # 12 -12', '-COSTO-------']</msg>
-<status status="PASS" starttime="20210418 19:18:51.993" endtime="20210418 19:18:51.994"/>
-</kw>
-<kw name="Create List" library="BuiltIn">
-<var>${C}</var>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>-CANTIDAD-</arg>
-<doc>Returns a list containing given items.</doc>
-<msg timestamp="20210418 19:18:51.995" level="INFO">${C} = ['.....', '.....', '.....', '.....', '.....', '.....', '.....', '.....', '.....', '.....', '-CANTIDAD-']</msg>
-<status status="PASS" starttime="20210418 19:18:51.994" endtime="20210418 19:18:51.995"/>
-</kw>
-<kw name="Get values from JSON" library="RPA.JSON">
-<var>${proceduresIds}</var>
-<arg>${facturacion}</arg>
-<arg>$.proceduresData.procedures[*].procedureId</arg>
-<doc>Get all values from a JSON serializable object that match the given expression.</doc>
-<msg timestamp="20210418 19:18:51.995" level="INFO">Get values from JSON with expression: "$.proceduresData.procedures[*].procedureId"</msg>
-<msg timestamp="20210418 19:18:52.013" level="INFO">${proceduresIds} = [45, 23]</msg>
-<status status="PASS" starttime="20210418 19:18:51.995" endtime="20210418 19:18:52.013"/>
-</kw>
-<kw name="Get values from JSON" library="RPA.JSON">
-<var>${costsIds}</var>
-<arg>${facturacion}</arg>
-<arg>$.costData.procedures[*].id</arg>
-<doc>Get all values from a JSON serializable object that match the given expression.</doc>
-<msg timestamp="20210418 19:18:52.013" level="INFO">Get values from JSON with expression: "$.costData.procedures[*].id"</msg>
-<msg timestamp="20210418 19:18:52.031" level="INFO">${costsIds} = [45, 23, 30]</msg>
-<status status="PASS" starttime="20210418 19:18:52.013" endtime="20210418 19:18:52.031"/>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<var>${iterator}</var>
-<arg>0</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20210418 19:18:52.031" level="INFO">${iterator} = 0</msg>
-<status status="PASS" starttime="20210418 19:18:52.031" endtime="20210418 19:18:52.031"/>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<var>${totalCost}</var>
-<arg>0</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20210418 19:18:52.031" level="INFO">${totalCost} = 0</msg>
-<status status="PASS" starttime="20210418 19:18:52.031" endtime="20210418 19:18:52.031"/>
-</kw>
-<for flavor="IN">
-<var>${id}</var>
-<value>@{proceduresIds}</value>
-<iter>
-<var name="${id}">45</var>
-<kw name="Evaluate" library="BuiltIn">
-<var>${costIndex}</var>
-<arg>${costsIds}.index(${id})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:52.032" level="INFO">${costIndex} = 0</msg>
-<status status="PASS" starttime="20210418 19:18:52.032" endtime="20210418 19:18:52.032"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${procedure}</var>
-<arg>${facturacion}</arg>
-<arg>$.costData.procedures[${costIndex}].procedure</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:52.033" level="INFO">Get value from JSON with expression: "$.costData.procedures[0].procedure"</msg>
-<msg timestamp="20210418 19:18:52.050" level="INFO">${procedure} = Radiografía de torax</msg>
-<status status="PASS" starttime="20210418 19:18:52.032" endtime="20210418 19:18:52.050"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${cost}</var>
-<arg>${facturacion}</arg>
-<arg>$.costData.procedures[${costIndex}].value</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:52.050" level="INFO">Get value from JSON with expression: "$.costData.procedures[0].value"</msg>
-<msg timestamp="20210418 19:18:52.067" level="INFO">${cost} = 12.5</msg>
-<status status="PASS" starttime="20210418 19:18:52.050" endtime="20210418 19:18:52.067"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${quantity}</var>
-<arg>${facturacion}</arg>
-<arg>$.proceduresData.procedures[${iterator}].quantity</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:52.068" level="INFO">Get value from JSON with expression: "$.proceduresData.procedures[0].quantity"</msg>
-<msg timestamp="20210418 19:18:52.086" level="INFO">${quantity} = 2</msg>
-<status status="PASS" starttime="20210418 19:18:52.067" endtime="20210418 19:18:52.086"/>
-</kw>
-<kw name="Create Dictionary" library="BuiltIn">
-<var>${Dict}</var>
-<arg>Nombre</arg>
-<arg>${procedure}</arg>
-<arg>Valor</arg>
-<arg>${cost}</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20210418 19:18:52.087" level="INFO">${Dict} = {'Nombre': 'Radiografía de torax', 'Valor': 12.5}</msg>
-<status status="PASS" starttime="20210418 19:18:52.086" endtime="20210418 19:18:52.087"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${N}</arg>
-<arg>${procedure}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:52.087" endtime="20210418 19:18:52.087"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${V}</arg>
-<arg>${cost}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:52.087" endtime="20210418 19:18:52.087"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${C}</arg>
-<arg>..${quantity}..</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:52.088" endtime="20210418 19:18:52.088"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${totalCost}</var>
-<arg>${totalCost} + (${cost} * ${quantity})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:52.088" level="INFO">${totalCost} = 25.0</msg>
-<status status="PASS" starttime="20210418 19:18:52.088" endtime="20210418 19:18:52.088"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${iterator}</var>
-<arg>${iterator} + 1</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:52.089" level="INFO">${iterator} = 1</msg>
-<status status="PASS" starttime="20210418 19:18:52.089" endtime="20210418 19:18:52.089"/>
-</kw>
-<status status="PASS" starttime="20210418 19:18:52.032" endtime="20210418 19:18:52.089"/>
+<status status="PASS" starttime="20210418 21:07:50.244" endtime="20210418 21:07:50.945"/>
 </iter>
-<iter>
-<var name="${id}">23</var>
-<kw name="Evaluate" library="BuiltIn">
-<var>${costIndex}</var>
-<arg>${costsIds}.index(${id})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:52.090" level="INFO">${costIndex} = 1</msg>
-<status status="PASS" starttime="20210418 19:18:52.089" endtime="20210418 19:18:52.090"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${procedure}</var>
-<arg>${facturacion}</arg>
-<arg>$.costData.procedures[${costIndex}].procedure</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:52.090" level="INFO">Get value from JSON with expression: "$.costData.procedures[1].procedure"</msg>
-<msg timestamp="20210418 19:18:52.108" level="INFO">${procedure} = Operación de costilla</msg>
-<status status="PASS" starttime="20210418 19:18:52.090" endtime="20210418 19:18:52.108"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${cost}</var>
-<arg>${facturacion}</arg>
-<arg>$.costData.procedures[${costIndex}].value</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:52.109" level="INFO">Get value from JSON with expression: "$.costData.procedures[1].value"</msg>
-<msg timestamp="20210418 19:18:52.126" level="INFO">${cost} = 43.5</msg>
-<status status="PASS" starttime="20210418 19:18:52.108" endtime="20210418 19:18:52.126"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${quantity}</var>
-<arg>${facturacion}</arg>
-<arg>$.proceduresData.procedures[${iterator}].quantity</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:52.127" level="INFO">Get value from JSON with expression: "$.proceduresData.procedures[1].quantity"</msg>
-<msg timestamp="20210418 19:18:52.144" level="INFO">${quantity} = 1</msg>
-<status status="PASS" starttime="20210418 19:18:52.127" endtime="20210418 19:18:52.144"/>
-</kw>
-<kw name="Create Dictionary" library="BuiltIn">
-<var>${Dict}</var>
-<arg>Nombre</arg>
-<arg>${procedure}</arg>
-<arg>Valor</arg>
-<arg>${cost}</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20210418 19:18:52.145" level="INFO">${Dict} = {'Nombre': 'Operación de costilla', 'Valor': 43.5}</msg>
-<status status="PASS" starttime="20210418 19:18:52.144" endtime="20210418 19:18:52.145"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${N}</arg>
-<arg>${procedure}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:52.145" endtime="20210418 19:18:52.145"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${V}</arg>
-<arg>${cost}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:52.145" endtime="20210418 19:18:52.146"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${C}</arg>
-<arg>..${quantity}..</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:52.146" endtime="20210418 19:18:52.146"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${totalCost}</var>
-<arg>${totalCost} + (${cost} * ${quantity})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:52.146" level="INFO">${totalCost} = 68.5</msg>
-<status status="PASS" starttime="20210418 19:18:52.146" endtime="20210418 19:18:52.147"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${iterator}</var>
-<arg>${iterator} + 1</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:52.147" level="INFO">${iterator} = 2</msg>
-<status status="PASS" starttime="20210418 19:18:52.147" endtime="20210418 19:18:52.147"/>
-</kw>
-<status status="PASS" starttime="20210418 19:18:52.089" endtime="20210418 19:18:52.147"/>
-</iter>
-<status status="PASS" starttime="20210418 19:18:52.032" endtime="20210418 19:18:52.147"/>
-</for>
-<kw name="Append To List" library="Collections">
-<arg>${N}</arg>
-<arg>-------------------</arg>
-<arg>-COSTO--TOTAL-</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:52.147" endtime="20210418 19:18:52.148"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${V}</arg>
-<arg>-------------------</arg>
-<arg>${totalCost}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:52.148" endtime="20210418 19:18:52.148"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${C}</arg>
-<arg>-------------------</arg>
-<arg>.....</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:52.148" endtime="20210418 19:18:52.148"/>
-</kw>
-<kw name="Create Dictionary" library="BuiltIn">
-<var>${InvoiceList}</var>
-<arg>NOMBRES</arg>
-<arg>${N}</arg>
-<arg>CANTIDAD</arg>
-<arg>${C}</arg>
-<arg>VALORES</arg>
-<arg>${V}</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20210418 19:18:52.149" level="INFO">${InvoiceList} = {'NOMBRES': ['NIT', 'Razon Social', 'Fecha', 'Factura de Cobro', '-------INFORMACION-', 'Nombre', 'Apellido', 'Documento', 'Tipo Documento', 'Direccion', '-------TRATAMIENTO-', 'Radiografía de torax',...</msg>
-<status status="PASS" starttime="20210418 19:18:52.148" endtime="20210418 19:18:52.149"/>
-</kw>
-<kw name="Create Table" library="RPA.Tables">
-<var>${INVOICE}</var>
-<arg>${InvoiceList}</arg>
-<doc>Create Table object from data.</doc>
-<msg timestamp="20210418 19:18:52.149" level="INFO">Created table: Table(columns=['NOMBRES', 'CANTIDAD', 'VALORES'], rows=15)</msg>
-<msg timestamp="20210418 19:18:52.150" level="INFO">${INVOICE} = Table(columns=['NOMBRES', 'CANTIDAD', 'VALORES'], rows=15)</msg>
-<status status="PASS" starttime="20210418 19:18:52.149" endtime="20210418 19:18:52.150"/>
-</kw>
-<kw name="Write Table To Csv" library="RPA.Tables">
-<arg>${INVOICE}</arg>
-<arg>${file_path}</arg>
-<doc>Write a table as a CSV file.</doc>
-<status status="PASS" starttime="20210418 19:18:52.150" endtime="20210418 19:18:52.151"/>
-</kw>
-<kw name="Init S3 Client" library="RPA.Cloud.AWS">
-<arg>aws_key_id=${AWS_KEY_ID}</arg>
-<arg>aws_key=${AWS_KEY}</arg>
-<doc>Initialize AWS S3 client</doc>
-<msg timestamp="20210418 19:18:52.151" level="INFO">Protecting keyword: rpa.cloud.aws.init_s3_client</msg>
-<msg timestamp="20210418 19:18:52.156" level="INFO">Log level changed from NONE to INFO.</msg>
-<status status="PASS" starttime="20210418 19:18:52.151" endtime="20210418 19:18:52.156"/>
-</kw>
-<kw name="Upload File" library="RPA.Cloud.AWS">
-<arg>${BUCKET_NAME}</arg>
-<arg>${file_path}</arg>
-<arg>Invoices${/}factura${type}${document}${date}.csv</arg>
-<doc>Upload single file into bucket</doc>
-<status status="PASS" starttime="20210418 19:18:52.156" endtime="20210418 19:18:53.434"/>
-</kw>
-<status status="PASS" starttime="20210418 19:18:49.349" endtime="20210418 19:18:53.435"/>
-</iter>
-<iter>
-<var name="${i}">2</var>
-<kw name="Get Current Date" library="DateTime">
-<var>${date}</var>
-<doc>Returns current local or UTC time with an optional increment.</doc>
-<msg timestamp="20210418 19:18:53.438" level="INFO">${date} = 2021-04-18 19:18:53.438</msg>
-<status status="PASS" starttime="20210418 19:18:53.437" endtime="20210418 19:18:53.439"/>
-</kw>
-<kw name="Init Sqs Client" library="RPA.Cloud.AWS">
-<arg>aws_key_id=${AWS_KEY_ID}</arg>
-<arg>aws_key=${AWS_KEY}</arg>
-<arg>region=${REGION}</arg>
-<arg>queue_url=${queue_url}</arg>
-<doc>Initialize AWS SQS client</doc>
-<msg timestamp="20210418 19:18:53.440" level="INFO">Protecting keyword: rpa.cloud.aws.init_sqs_client</msg>
-<msg timestamp="20210418 19:18:53.447" level="INFO">Log level changed from NONE to INFO.</msg>
-<status status="PASS" starttime="20210418 19:18:53.439" endtime="20210418 19:18:53.447"/>
-</kw>
-<kw name="Receive Message" library="RPA.Cloud.AWS">
-<var>${mssg}</var>
-<doc>Receive message from queue</doc>
-<msg timestamp="20210418 19:18:53.973" level="INFO">${mssg} = {'MessageId': 'db09a737-57b2-40b5-9f0c-34d00cead70c', 'ReceiptHandle': 'AQEBl3rafaH9VJKdguCvR3ggf3Ks5tCfy+G4Q6bAiY25rESrA7b2eWklMIUj5rQora2lvv95NH2mmpLUYG31jxeG60j++T1M618y2FQ/Sxt5Yt0iQV8AfRnQlrUqAkoH...</msg>
-<status status="PASS" starttime="20210418 19:18:53.447" endtime="20210418 19:18:53.973"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${getMessage}</var>
-<arg>${mssg} is None</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:53.975" level="INFO">${getMessage} = False</msg>
-<status status="PASS" starttime="20210418 19:18:53.974" endtime="20210418 19:18:53.975"/>
-</kw>
-<kw name="Log" library="BuiltIn">
-<arg>${getMessage}</arg>
-<doc>Logs the given message with the given level.</doc>
-<msg timestamp="20210418 19:18:53.976" level="INFO">False</msg>
-<status status="PASS" starttime="20210418 19:18:53.975" endtime="20210418 19:18:53.976"/>
-</kw>
-<kw name="Exit For Loop If" library="BuiltIn">
-<arg>${getMessage}</arg>
-<doc>Stops executing the enclosing for loop if the ``condition`` is true.</doc>
-<status status="PASS" starttime="20210418 19:18:53.976" endtime="20210418 19:18:53.977"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${bodyM}</var>
-<arg>json.dumps(${mssg})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:53.978" level="INFO">${bodyM} = {"MessageId": "db09a737-57b2-40b5-9f0c-34d00cead70c", "ReceiptHandle": "AQEBl3rafaH9VJKdguCvR3ggf3Ks5tCfy+G4Q6bAiY25rESrA7b2eWklMIUj5rQora2lvv95NH2mmpLUYG31jxeG60j++T1M618y2FQ/Sxt5Yt0iQV8AfRnQlrUqAkoH...</msg>
-<status status="PASS" starttime="20210418 19:18:53.977" endtime="20210418 19:18:53.978"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${receipt_handle}</var>
-<arg>${bodyM}</arg>
-<arg>$.ReceiptHandle</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:53.979" level="INFO">Get value from JSON with expression: "$.ReceiptHandle"</msg>
-<msg timestamp="20210418 19:18:54.005" level="INFO">${receipt_handle} = AQEBl3rafaH9VJKdguCvR3ggf3Ks5tCfy+G4Q6bAiY25rESrA7b2eWklMIUj5rQora2lvv95NH2mmpLUYG31jxeG60j++T1M618y2FQ/Sxt5Yt0iQV8AfRnQlrUqAkoHTpBELnSWdp+yfakaDjHKZV3hj39ZiL94rBJxfi0fWeZeEfbynmZglWFifZ5croHyuWTo/POJ...</msg>
-<status status="PASS" starttime="20210418 19:18:53.978" endtime="20210418 19:18:54.005"/>
-</kw>
-<kw name="Log" library="BuiltIn">
-<arg>${bodyM}</arg>
-<doc>Logs the given message with the given level.</doc>
-<msg timestamp="20210418 19:18:54.006" level="INFO">{"MessageId": "db09a737-57b2-40b5-9f0c-34d00cead70c", "ReceiptHandle": "AQEBl3rafaH9VJKdguCvR3ggf3Ks5tCfy+G4Q6bAiY25rESrA7b2eWklMIUj5rQora2lvv95NH2mmpLUYG31jxeG60j++T1M618y2FQ/Sxt5Yt0iQV8AfRnQlrUqAkoHTpBELnSWdp+yfakaDjHKZV3hj39ZiL94rBJxfi0fWeZeEfbynmZglWFifZ5croHyuWTo/POJw9eLdttcA9b506FBRQLiDrkapZA2soOevj1Pzx91WWDLBiYUHqyIWB3I+mr+5hVehd70sna2+OFBKucWiaVXnmW92Dfl0PytoIXwbj+05y2ZrUwvdNt93bRTJuRimE6IRPRHHMDzPYHzzLXQLMLrmj+jV+0uIFAZbzMaUQKdko9xVCiwivAXjgUztf5B/4Ix6K3iHxcsWOgflSPjXg==", "MD5OfBody": "9ea2c7412d08bdfed6c6aff774cb82a0", "Body": "{user : 1022785423, status : 'AVAILABLE_TO_BILL'}"}</msg>
-<status status="PASS" starttime="20210418 19:18:54.005" endtime="20210418 19:18:54.006"/>
-</kw>
-<kw name="Delete Message" library="RPA.Cloud.AWS">
-<arg>receipt_handle=${receipt_handle}</arg>
-<doc>Delete message in the queue</doc>
-<status status="PASS" starttime="20210418 19:18:54.006" endtime="20210418 19:18:54.115"/>
-</kw>
-<kw name="Create Session" library="RPA.HTTP">
-<arg>httpbin</arg>
-<arg>${URL_WS}</arg>
-<doc>Create Session: create a HTTP session to a server</doc>
-<msg timestamp="20210418 19:18:54.118" level="INFO">Creating Session using : alias=httpbin, url=https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
-<status status="PASS" starttime="20210418 19:18:54.116" endtime="20210418 19:18:54.119"/>
-</kw>
-<kw name="Post Request" library="RPA.HTTP">
-<var>${resp}</var>
-<arg>httpbin</arg>
-<arg>${PATH_WS}</arg>
-<arg>data=${request}</arg>
-<doc>Send a POST request on the session object found using the
-given `alias`</doc>
-<msg timestamp="20210418 19:18:55.735" level="INFO">POST Request : url=https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com/prod/invoice 
- path_url=/prod/invoice 
- headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '34'} 
- body=b'{ "operation" : "getInvoiceData" }' 
- </msg>
-<msg timestamp="20210418 19:18:55.770" level="INFO">POST Response : url=https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com/prod/invoice 
- status=200, reason=OK 
- body={"costData":{"module":"management","version":"1.0.0","procedures":[{"id":45,"procedure":"Radiografía de torax","value":12.5},{"id":23,"procedure":"Operación de costilla","value":43.5},{"id":30,"procedure":"Hospitalización en cama x noche","value":11.5}]},"patientData":{"module":"patient","version":"1.0.0","name":"John","lastName":"Doe","document":123123,"type":"passport","address":"Av 12 # 12 -12"},"proceduresData":{"module":"clinicHistory","version":"1.0.0","procedures":[{"id":123,"date":"12/12/2012","procedureId":45,"medicalHeadquarterId":2,"professionalId":1522,"quantity":2},{"id":124,"date":"13/12/2012","procedureId":23,"medicalHeadquarterId":2,"professionalId":1488,"quantity":1}]}} 
- </msg>
-<msg timestamp="20210418 19:18:55.770" level="INFO">/usr/lib/python3.7/site-packages/urllib3/connectionpool.py:1004: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
-  InsecureRequestWarning,</msg>
-<msg timestamp="20210418 19:18:55.770" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
-<status status="PASS" starttime="20210418 19:18:54.120" endtime="20210418 19:18:55.770"/>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<var>${facturacion}</var>
-<arg>${resp.json()}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20210418 19:18:55.773" level="INFO">${facturacion} = {'costData': {'module': 'management', 'version': '1.0.0', 'procedures': [{'id': 45, 'procedure': 'Radiografía de torax', 'value': 12.5}, {'id': 23, 'procedure': 'Operación de costilla', 'value': 43.5}...</msg>
-<status status="PASS" starttime="20210418 19:18:55.771" endtime="20210418 19:18:55.773"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${name}</var>
-<arg>${facturacion}</arg>
-<arg>$.patientData.name</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:55.774" level="INFO">Get value from JSON with expression: "$.patientData.name"</msg>
-<msg timestamp="20210418 19:18:55.798" level="INFO">${name} = John</msg>
-<status status="PASS" starttime="20210418 19:18:55.773" endtime="20210418 19:18:55.798"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${lastName}</var>
-<arg>${facturacion}</arg>
-<arg>$.patientData.lastName</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:55.798" level="INFO">Get value from JSON with expression: "$.patientData.lastName"</msg>
-<msg timestamp="20210418 19:18:55.820" level="INFO">${lastName} = Doe</msg>
-<status status="PASS" starttime="20210418 19:18:55.798" endtime="20210418 19:18:55.820"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${document}</var>
-<arg>${facturacion}</arg>
-<arg>$.patientData.document</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:55.821" level="INFO">Get value from JSON with expression: "$.patientData.document"</msg>
-<msg timestamp="20210418 19:18:55.839" level="INFO">${document} = 123123</msg>
-<status status="PASS" starttime="20210418 19:18:55.820" endtime="20210418 19:18:55.839"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${type}</var>
-<arg>${facturacion}</arg>
-<arg>$.patientData.type</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:55.839" level="INFO">Get value from JSON with expression: "$.patientData.type"</msg>
-<msg timestamp="20210418 19:18:55.857" level="INFO">${type} = passport</msg>
-<status status="PASS" starttime="20210418 19:18:55.839" endtime="20210418 19:18:55.857"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${address}</var>
-<arg>${facturacion}</arg>
-<arg>$.patientData.address</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:55.858" level="INFO">Get value from JSON with expression: "$.patientData.address"</msg>
-<msg timestamp="20210418 19:18:55.875" level="INFO">${address} = Av 12 # 12 -12</msg>
-<status status="PASS" starttime="20210418 19:18:55.857" endtime="20210418 19:18:55.875"/>
-</kw>
-<kw name="Create List" library="BuiltIn">
-<var>${N}</var>
-<arg>NIT</arg>
-<arg>Razon Social</arg>
-<arg>Fecha</arg>
-<arg>Factura de Cobro</arg>
-<arg>-------INFORMACION-</arg>
-<arg>Nombre</arg>
-<arg>Apellido</arg>
-<arg>Documento</arg>
-<arg>Tipo Documento</arg>
-<arg>Direccion</arg>
-<arg>-------TRATAMIENTO-</arg>
-<doc>Returns a list containing given items.</doc>
-<msg timestamp="20210418 19:18:55.876" level="INFO">${N} = ['NIT', 'Razon Social', 'Fecha', 'Factura de Cobro', '-------INFORMACION-', 'Nombre', 'Apellido', 'Documento', 'Tipo Documento', 'Direccion', '-------TRATAMIENTO-']</msg>
-<status status="PASS" starttime="20210418 19:18:55.875" endtime="20210418 19:18:55.876"/>
-</kw>
-<kw name="Create List" library="BuiltIn">
-<var>${V}</var>
-<arg>12345678</arg>
-<arg>ClincaABC</arg>
-<arg>${date}</arg>
-<arg>${type}${document}</arg>
-<arg>-PERSONAL-------</arg>
-<arg>${name}</arg>
-<arg>${lastName}</arg>
-<arg>${document}</arg>
-<arg>${type}</arg>
-<arg>${address}</arg>
-<arg>-COSTO-------</arg>
-<doc>Returns a list containing given items.</doc>
-<msg timestamp="20210418 19:18:55.876" level="INFO">${V} = ['12345678', 'ClincaABC', '2021-04-18 19:18:53.438', 'passport123123', '-PERSONAL-------', 'John', 'Doe', 123123, 'passport', 'Av 12 # 12 -12', '-COSTO-------']</msg>
-<status status="PASS" starttime="20210418 19:18:55.876" endtime="20210418 19:18:55.876"/>
-</kw>
-<kw name="Create List" library="BuiltIn">
-<var>${C}</var>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>-CANTIDAD-</arg>
-<doc>Returns a list containing given items.</doc>
-<msg timestamp="20210418 19:18:55.877" level="INFO">${C} = ['.....', '.....', '.....', '.....', '.....', '.....', '.....', '.....', '.....', '.....', '-CANTIDAD-']</msg>
-<status status="PASS" starttime="20210418 19:18:55.877" endtime="20210418 19:18:55.877"/>
-</kw>
-<kw name="Get values from JSON" library="RPA.JSON">
-<var>${proceduresIds}</var>
-<arg>${facturacion}</arg>
-<arg>$.proceduresData.procedures[*].procedureId</arg>
-<doc>Get all values from a JSON serializable object that match the given expression.</doc>
-<msg timestamp="20210418 19:18:55.877" level="INFO">Get values from JSON with expression: "$.proceduresData.procedures[*].procedureId"</msg>
-<msg timestamp="20210418 19:18:55.894" level="INFO">${proceduresIds} = [45, 23]</msg>
-<status status="PASS" starttime="20210418 19:18:55.877" endtime="20210418 19:18:55.894"/>
-</kw>
-<kw name="Get values from JSON" library="RPA.JSON">
-<var>${costsIds}</var>
-<arg>${facturacion}</arg>
-<arg>$.costData.procedures[*].id</arg>
-<doc>Get all values from a JSON serializable object that match the given expression.</doc>
-<msg timestamp="20210418 19:18:55.895" level="INFO">Get values from JSON with expression: "$.costData.procedures[*].id"</msg>
-<msg timestamp="20210418 19:18:55.911" level="INFO">${costsIds} = [45, 23, 30]</msg>
-<status status="PASS" starttime="20210418 19:18:55.894" endtime="20210418 19:18:55.912"/>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<var>${iterator}</var>
-<arg>0</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20210418 19:18:55.912" level="INFO">${iterator} = 0</msg>
-<status status="PASS" starttime="20210418 19:18:55.912" endtime="20210418 19:18:55.912"/>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<var>${totalCost}</var>
-<arg>0</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20210418 19:18:55.912" level="INFO">${totalCost} = 0</msg>
-<status status="PASS" starttime="20210418 19:18:55.912" endtime="20210418 19:18:55.912"/>
-</kw>
-<for flavor="IN">
-<var>${id}</var>
-<value>@{proceduresIds}</value>
-<iter>
-<var name="${id}">45</var>
-<kw name="Evaluate" library="BuiltIn">
-<var>${costIndex}</var>
-<arg>${costsIds}.index(${id})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:55.913" level="INFO">${costIndex} = 0</msg>
-<status status="PASS" starttime="20210418 19:18:55.913" endtime="20210418 19:18:55.913"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${procedure}</var>
-<arg>${facturacion}</arg>
-<arg>$.costData.procedures[${costIndex}].procedure</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:55.914" level="INFO">Get value from JSON with expression: "$.costData.procedures[0].procedure"</msg>
-<msg timestamp="20210418 19:18:55.931" level="INFO">${procedure} = Radiografía de torax</msg>
-<status status="PASS" starttime="20210418 19:18:55.913" endtime="20210418 19:18:55.931"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${cost}</var>
-<arg>${facturacion}</arg>
-<arg>$.costData.procedures[${costIndex}].value</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:55.931" level="INFO">Get value from JSON with expression: "$.costData.procedures[0].value"</msg>
-<msg timestamp="20210418 19:18:55.949" level="INFO">${cost} = 12.5</msg>
-<status status="PASS" starttime="20210418 19:18:55.931" endtime="20210418 19:18:55.949"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${quantity}</var>
-<arg>${facturacion}</arg>
-<arg>$.proceduresData.procedures[${iterator}].quantity</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:55.950" level="INFO">Get value from JSON with expression: "$.proceduresData.procedures[0].quantity"</msg>
-<msg timestamp="20210418 19:18:55.970" level="INFO">${quantity} = 2</msg>
-<status status="PASS" starttime="20210418 19:18:55.949" endtime="20210418 19:18:55.970"/>
-</kw>
-<kw name="Create Dictionary" library="BuiltIn">
-<var>${Dict}</var>
-<arg>Nombre</arg>
-<arg>${procedure}</arg>
-<arg>Valor</arg>
-<arg>${cost}</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20210418 19:18:55.971" level="INFO">${Dict} = {'Nombre': 'Radiografía de torax', 'Valor': 12.5}</msg>
-<status status="PASS" starttime="20210418 19:18:55.970" endtime="20210418 19:18:55.971"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${N}</arg>
-<arg>${procedure}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:55.971" endtime="20210418 19:18:55.971"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${V}</arg>
-<arg>${cost}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:55.971" endtime="20210418 19:18:55.971"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${C}</arg>
-<arg>..${quantity}..</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:55.972" endtime="20210418 19:18:55.972"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${totalCost}</var>
-<arg>${totalCost} + (${cost} * ${quantity})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:55.972" level="INFO">${totalCost} = 25.0</msg>
-<status status="PASS" starttime="20210418 19:18:55.972" endtime="20210418 19:18:55.972"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${iterator}</var>
-<arg>${iterator} + 1</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:55.973" level="INFO">${iterator} = 1</msg>
-<status status="PASS" starttime="20210418 19:18:55.973" endtime="20210418 19:18:55.973"/>
-</kw>
-<status status="PASS" starttime="20210418 19:18:55.913" endtime="20210418 19:18:55.973"/>
-</iter>
-<iter>
-<var name="${id}">23</var>
-<kw name="Evaluate" library="BuiltIn">
-<var>${costIndex}</var>
-<arg>${costsIds}.index(${id})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:55.974" level="INFO">${costIndex} = 1</msg>
-<status status="PASS" starttime="20210418 19:18:55.973" endtime="20210418 19:18:55.974"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${procedure}</var>
-<arg>${facturacion}</arg>
-<arg>$.costData.procedures[${costIndex}].procedure</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:55.974" level="INFO">Get value from JSON with expression: "$.costData.procedures[1].procedure"</msg>
-<msg timestamp="20210418 19:18:55.993" level="INFO">${procedure} = Operación de costilla</msg>
-<status status="PASS" starttime="20210418 19:18:55.974" endtime="20210418 19:18:55.993"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${cost}</var>
-<arg>${facturacion}</arg>
-<arg>$.costData.procedures[${costIndex}].value</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:55.993" level="INFO">Get value from JSON with expression: "$.costData.procedures[1].value"</msg>
-<msg timestamp="20210418 19:18:56.011" level="INFO">${cost} = 43.5</msg>
-<status status="PASS" starttime="20210418 19:18:55.993" endtime="20210418 19:18:56.011"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${quantity}</var>
-<arg>${facturacion}</arg>
-<arg>$.proceduresData.procedures[${iterator}].quantity</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:56.011" level="INFO">Get value from JSON with expression: "$.proceduresData.procedures[1].quantity"</msg>
-<msg timestamp="20210418 19:18:56.028" level="INFO">${quantity} = 1</msg>
-<status status="PASS" starttime="20210418 19:18:56.011" endtime="20210418 19:18:56.028"/>
-</kw>
-<kw name="Create Dictionary" library="BuiltIn">
-<var>${Dict}</var>
-<arg>Nombre</arg>
-<arg>${procedure}</arg>
-<arg>Valor</arg>
-<arg>${cost}</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20210418 19:18:56.029" level="INFO">${Dict} = {'Nombre': 'Operación de costilla', 'Valor': 43.5}</msg>
-<status status="PASS" starttime="20210418 19:18:56.028" endtime="20210418 19:18:56.029"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${N}</arg>
-<arg>${procedure}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:56.029" endtime="20210418 19:18:56.029"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${V}</arg>
-<arg>${cost}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:56.029" endtime="20210418 19:18:56.030"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${C}</arg>
-<arg>..${quantity}..</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:56.030" endtime="20210418 19:18:56.030"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${totalCost}</var>
-<arg>${totalCost} + (${cost} * ${quantity})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:56.031" level="INFO">${totalCost} = 68.5</msg>
-<status status="PASS" starttime="20210418 19:18:56.030" endtime="20210418 19:18:56.031"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${iterator}</var>
-<arg>${iterator} + 1</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:56.031" level="INFO">${iterator} = 2</msg>
-<status status="PASS" starttime="20210418 19:18:56.031" endtime="20210418 19:18:56.031"/>
-</kw>
-<status status="PASS" starttime="20210418 19:18:55.973" endtime="20210418 19:18:56.031"/>
-</iter>
-<status status="PASS" starttime="20210418 19:18:55.912" endtime="20210418 19:18:56.031"/>
-</for>
-<kw name="Append To List" library="Collections">
-<arg>${N}</arg>
-<arg>-------------------</arg>
-<arg>-COSTO--TOTAL-</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:56.031" endtime="20210418 19:18:56.032"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${V}</arg>
-<arg>-------------------</arg>
-<arg>${totalCost}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:56.032" endtime="20210418 19:18:56.032"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${C}</arg>
-<arg>-------------------</arg>
-<arg>.....</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:56.032" endtime="20210418 19:18:56.032"/>
-</kw>
-<kw name="Create Dictionary" library="BuiltIn">
-<var>${InvoiceList}</var>
-<arg>NOMBRES</arg>
-<arg>${N}</arg>
-<arg>CANTIDAD</arg>
-<arg>${C}</arg>
-<arg>VALORES</arg>
-<arg>${V}</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20210418 19:18:56.033" level="INFO">${InvoiceList} = {'NOMBRES': ['NIT', 'Razon Social', 'Fecha', 'Factura de Cobro', '-------INFORMACION-', 'Nombre', 'Apellido', 'Documento', 'Tipo Documento', 'Direccion', '-------TRATAMIENTO-', 'Radiografía de torax',...</msg>
-<status status="PASS" starttime="20210418 19:18:56.033" endtime="20210418 19:18:56.033"/>
-</kw>
-<kw name="Create Table" library="RPA.Tables">
-<var>${INVOICE}</var>
-<arg>${InvoiceList}</arg>
-<doc>Create Table object from data.</doc>
-<msg timestamp="20210418 19:18:56.034" level="INFO">Created table: Table(columns=['NOMBRES', 'CANTIDAD', 'VALORES'], rows=15)</msg>
-<msg timestamp="20210418 19:18:56.034" level="INFO">${INVOICE} = Table(columns=['NOMBRES', 'CANTIDAD', 'VALORES'], rows=15)</msg>
-<status status="PASS" starttime="20210418 19:18:56.033" endtime="20210418 19:18:56.034"/>
-</kw>
-<kw name="Write Table To Csv" library="RPA.Tables">
-<arg>${INVOICE}</arg>
-<arg>${file_path}</arg>
-<doc>Write a table as a CSV file.</doc>
-<status status="PASS" starttime="20210418 19:18:56.034" endtime="20210418 19:18:56.035"/>
-</kw>
-<kw name="Init S3 Client" library="RPA.Cloud.AWS">
-<arg>aws_key_id=${AWS_KEY_ID}</arg>
-<arg>aws_key=${AWS_KEY}</arg>
-<doc>Initialize AWS S3 client</doc>
-<msg timestamp="20210418 19:18:56.035" level="INFO">Protecting keyword: rpa.cloud.aws.init_s3_client</msg>
-<msg timestamp="20210418 19:18:56.041" level="INFO">Log level changed from NONE to INFO.</msg>
-<status status="PASS" starttime="20210418 19:18:56.035" endtime="20210418 19:18:56.041"/>
-</kw>
-<kw name="Upload File" library="RPA.Cloud.AWS">
-<arg>${BUCKET_NAME}</arg>
-<arg>${file_path}</arg>
-<arg>Invoices${/}factura${type}${document}${date}.csv</arg>
-<doc>Upload single file into bucket</doc>
-<status status="PASS" starttime="20210418 19:18:56.041" endtime="20210418 19:18:57.374"/>
-</kw>
-<status status="PASS" starttime="20210418 19:18:53.436" endtime="20210418 19:18:57.375"/>
-</iter>
-<iter>
-<var name="${i}">3</var>
-<kw name="Get Current Date" library="DateTime">
-<var>${date}</var>
-<doc>Returns current local or UTC time with an optional increment.</doc>
-<msg timestamp="20210418 19:18:57.379" level="INFO">${date} = 2021-04-18 19:18:57.378</msg>
-<status status="PASS" starttime="20210418 19:18:57.377" endtime="20210418 19:18:57.379"/>
-</kw>
-<kw name="Init Sqs Client" library="RPA.Cloud.AWS">
-<arg>aws_key_id=${AWS_KEY_ID}</arg>
-<arg>aws_key=${AWS_KEY}</arg>
-<arg>region=${REGION}</arg>
-<arg>queue_url=${queue_url}</arg>
-<doc>Initialize AWS SQS client</doc>
-<msg timestamp="20210418 19:18:57.381" level="INFO">Protecting keyword: rpa.cloud.aws.init_sqs_client</msg>
-<msg timestamp="20210418 19:18:57.399" level="INFO">Log level changed from NONE to INFO.</msg>
-<status status="PASS" starttime="20210418 19:18:57.380" endtime="20210418 19:18:57.398"/>
-</kw>
-<kw name="Receive Message" library="RPA.Cloud.AWS">
-<var>${mssg}</var>
-<doc>Receive message from queue</doc>
-<msg timestamp="20210418 19:18:57.931" level="INFO">${mssg} = {'MessageId': 'f7e4359b-e078-4138-aa4d-8aac955f73f9', 'ReceiptHandle': 'AQEBLh6601tq/eSFRCyKOp1Sk08spfMFDAvL61lgwPI3RFMDoOLD558GJW2PC2q4biIx95xvvZyUPHbit74sE36SE7g0Zu6uhq1cy4q/Q1SquYGeCp+x6L/EwHIuDmL8...</msg>
-<status status="PASS" starttime="20210418 19:18:57.399" endtime="20210418 19:18:57.932"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${getMessage}</var>
-<arg>${mssg} is None</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:57.933" level="INFO">${getMessage} = False</msg>
-<status status="PASS" starttime="20210418 19:18:57.932" endtime="20210418 19:18:57.933"/>
-</kw>
-<kw name="Log" library="BuiltIn">
-<arg>${getMessage}</arg>
-<doc>Logs the given message with the given level.</doc>
-<msg timestamp="20210418 19:18:57.933" level="INFO">False</msg>
-<status status="PASS" starttime="20210418 19:18:57.933" endtime="20210418 19:18:57.933"/>
-</kw>
-<kw name="Exit For Loop If" library="BuiltIn">
-<arg>${getMessage}</arg>
-<doc>Stops executing the enclosing for loop if the ``condition`` is true.</doc>
-<status status="PASS" starttime="20210418 19:18:57.934" endtime="20210418 19:18:57.934"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${bodyM}</var>
-<arg>json.dumps(${mssg})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:57.935" level="INFO">${bodyM} = {"MessageId": "f7e4359b-e078-4138-aa4d-8aac955f73f9", "ReceiptHandle": "AQEBLh6601tq/eSFRCyKOp1Sk08spfMFDAvL61lgwPI3RFMDoOLD558GJW2PC2q4biIx95xvvZyUPHbit74sE36SE7g0Zu6uhq1cy4q/Q1SquYGeCp+x6L/EwHIuDmL8...</msg>
-<status status="PASS" starttime="20210418 19:18:57.934" endtime="20210418 19:18:57.935"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${receipt_handle}</var>
-<arg>${bodyM}</arg>
-<arg>$.ReceiptHandle</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:57.935" level="INFO">Get value from JSON with expression: "$.ReceiptHandle"</msg>
-<msg timestamp="20210418 19:18:57.956" level="INFO">${receipt_handle} = AQEBLh6601tq/eSFRCyKOp1Sk08spfMFDAvL61lgwPI3RFMDoOLD558GJW2PC2q4biIx95xvvZyUPHbit74sE36SE7g0Zu6uhq1cy4q/Q1SquYGeCp+x6L/EwHIuDmL8fB1SfynXC+Zv123ogs03LsHZ+fDN1qdfS1U4TDFHKcdNEVzbixDft8roo66gwaUTu2JeQxn1...</msg>
-<status status="PASS" starttime="20210418 19:18:57.935" endtime="20210418 19:18:57.956"/>
-</kw>
-<kw name="Log" library="BuiltIn">
-<arg>${bodyM}</arg>
-<doc>Logs the given message with the given level.</doc>
-<msg timestamp="20210418 19:18:57.957" level="INFO">{"MessageId": "f7e4359b-e078-4138-aa4d-8aac955f73f9", "ReceiptHandle": "AQEBLh6601tq/eSFRCyKOp1Sk08spfMFDAvL61lgwPI3RFMDoOLD558GJW2PC2q4biIx95xvvZyUPHbit74sE36SE7g0Zu6uhq1cy4q/Q1SquYGeCp+x6L/EwHIuDmL8fB1SfynXC+Zv123ogs03LsHZ+fDN1qdfS1U4TDFHKcdNEVzbixDft8roo66gwaUTu2JeQxn1ef58IAJNZTo73mjihCPtwLc5zlaeCs5t7SDnRr5ddfZGTDmOzPXfGqKZDDMsRNWBYamwk5wCzmP0It38XM35M1VKjkb2h7HRdUc1CUh7yYRftl3vT1aCd2FRzU/aYbUx8bfDe/jntRJi2M5KjvWH4aS4jiXH37jJAiSLtMBjbAu7AE93wiqrzpgVpqIHfQARCHo6LDIqTBxa4wYA5A==", "MD5OfBody": "9ea2c7412d08bdfed6c6aff774cb82a0", "Body": "{user : 1022785423, status : 'AVAILABLE_TO_BILL'}"}</msg>
-<status status="PASS" starttime="20210418 19:18:57.956" endtime="20210418 19:18:57.957"/>
-</kw>
-<kw name="Delete Message" library="RPA.Cloud.AWS">
-<arg>receipt_handle=${receipt_handle}</arg>
-<doc>Delete message in the queue</doc>
-<status status="PASS" starttime="20210418 19:18:57.957" endtime="20210418 19:18:58.066"/>
-</kw>
-<kw name="Create Session" library="RPA.HTTP">
-<arg>httpbin</arg>
-<arg>${URL_WS}</arg>
-<doc>Create Session: create a HTTP session to a server</doc>
-<msg timestamp="20210418 19:18:58.069" level="INFO">Creating Session using : alias=httpbin, url=https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
-<status status="PASS" starttime="20210418 19:18:58.068" endtime="20210418 19:18:58.070"/>
-</kw>
-<kw name="Post Request" library="RPA.HTTP">
-<var>${resp}</var>
-<arg>httpbin</arg>
-<arg>${PATH_WS}</arg>
-<arg>data=${request}</arg>
-<doc>Send a POST request on the session object found using the
-given `alias`</doc>
-<msg timestamp="20210418 19:18:59.676" level="INFO">POST Request : url=https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com/prod/invoice 
- path_url=/prod/invoice 
- headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '34'} 
- body=b'{ "operation" : "getInvoiceData" }' 
- </msg>
-<msg timestamp="20210418 19:18:59.695" level="INFO">POST Response : url=https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com/prod/invoice 
- status=200, reason=OK 
- body={"costData":{"module":"management","version":"1.0.0","procedures":[{"id":45,"procedure":"Radiografía de torax","value":12.5},{"id":23,"procedure":"Operación de costilla","value":43.5},{"id":30,"procedure":"Hospitalización en cama x noche","value":11.5}]},"patientData":{"module":"patient","version":"1.0.0","name":"John","lastName":"Doe","document":123123,"type":"passport","address":"Av 12 # 12 -12"},"proceduresData":{"module":"clinicHistory","version":"1.0.0","procedures":[{"id":123,"date":"12/12/2012","procedureId":45,"medicalHeadquarterId":2,"professionalId":1522,"quantity":2},{"id":124,"date":"13/12/2012","procedureId":23,"medicalHeadquarterId":2,"professionalId":1488,"quantity":1}]}} 
- </msg>
-<msg timestamp="20210418 19:18:59.695" level="INFO">/usr/lib/python3.7/site-packages/urllib3/connectionpool.py:1004: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
-  InsecureRequestWarning,</msg>
-<msg timestamp="20210418 19:18:59.695" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
-<status status="PASS" starttime="20210418 19:18:58.071" endtime="20210418 19:18:59.695"/>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<var>${facturacion}</var>
-<arg>${resp.json()}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20210418 19:18:59.697" level="INFO">${facturacion} = {'costData': {'module': 'management', 'version': '1.0.0', 'procedures': [{'id': 45, 'procedure': 'Radiografía de torax', 'value': 12.5}, {'id': 23, 'procedure': 'Operación de costilla', 'value': 43.5}...</msg>
-<status status="PASS" starttime="20210418 19:18:59.696" endtime="20210418 19:18:59.697"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${name}</var>
-<arg>${facturacion}</arg>
-<arg>$.patientData.name</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:59.698" level="INFO">Get value from JSON with expression: "$.patientData.name"</msg>
-<msg timestamp="20210418 19:18:59.720" level="INFO">${name} = John</msg>
-<status status="PASS" starttime="20210418 19:18:59.698" endtime="20210418 19:18:59.720"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${lastName}</var>
-<arg>${facturacion}</arg>
-<arg>$.patientData.lastName</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:59.721" level="INFO">Get value from JSON with expression: "$.patientData.lastName"</msg>
-<msg timestamp="20210418 19:18:59.742" level="INFO">${lastName} = Doe</msg>
-<status status="PASS" starttime="20210418 19:18:59.721" endtime="20210418 19:18:59.742"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${document}</var>
-<arg>${facturacion}</arg>
-<arg>$.patientData.document</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:59.742" level="INFO">Get value from JSON with expression: "$.patientData.document"</msg>
-<msg timestamp="20210418 19:18:59.761" level="INFO">${document} = 123123</msg>
-<status status="PASS" starttime="20210418 19:18:59.742" endtime="20210418 19:18:59.761"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${type}</var>
-<arg>${facturacion}</arg>
-<arg>$.patientData.type</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:59.761" level="INFO">Get value from JSON with expression: "$.patientData.type"</msg>
-<msg timestamp="20210418 19:18:59.778" level="INFO">${type} = passport</msg>
-<status status="PASS" starttime="20210418 19:18:59.761" endtime="20210418 19:18:59.778"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${address}</var>
-<arg>${facturacion}</arg>
-<arg>$.patientData.address</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:59.779" level="INFO">Get value from JSON with expression: "$.patientData.address"</msg>
-<msg timestamp="20210418 19:18:59.796" level="INFO">${address} = Av 12 # 12 -12</msg>
-<status status="PASS" starttime="20210418 19:18:59.779" endtime="20210418 19:18:59.796"/>
-</kw>
-<kw name="Create List" library="BuiltIn">
-<var>${N}</var>
-<arg>NIT</arg>
-<arg>Razon Social</arg>
-<arg>Fecha</arg>
-<arg>Factura de Cobro</arg>
-<arg>-------INFORMACION-</arg>
-<arg>Nombre</arg>
-<arg>Apellido</arg>
-<arg>Documento</arg>
-<arg>Tipo Documento</arg>
-<arg>Direccion</arg>
-<arg>-------TRATAMIENTO-</arg>
-<doc>Returns a list containing given items.</doc>
-<msg timestamp="20210418 19:18:59.797" level="INFO">${N} = ['NIT', 'Razon Social', 'Fecha', 'Factura de Cobro', '-------INFORMACION-', 'Nombre', 'Apellido', 'Documento', 'Tipo Documento', 'Direccion', '-------TRATAMIENTO-']</msg>
-<status status="PASS" starttime="20210418 19:18:59.796" endtime="20210418 19:18:59.797"/>
-</kw>
-<kw name="Create List" library="BuiltIn">
-<var>${V}</var>
-<arg>12345678</arg>
-<arg>ClincaABC</arg>
-<arg>${date}</arg>
-<arg>${type}${document}</arg>
-<arg>-PERSONAL-------</arg>
-<arg>${name}</arg>
-<arg>${lastName}</arg>
-<arg>${document}</arg>
-<arg>${type}</arg>
-<arg>${address}</arg>
-<arg>-COSTO-------</arg>
-<doc>Returns a list containing given items.</doc>
-<msg timestamp="20210418 19:18:59.797" level="INFO">${V} = ['12345678', 'ClincaABC', '2021-04-18 19:18:57.378', 'passport123123', '-PERSONAL-------', 'John', 'Doe', 123123, 'passport', 'Av 12 # 12 -12', '-COSTO-------']</msg>
-<status status="PASS" starttime="20210418 19:18:59.797" endtime="20210418 19:18:59.797"/>
-</kw>
-<kw name="Create List" library="BuiltIn">
-<var>${C}</var>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>-CANTIDAD-</arg>
-<doc>Returns a list containing given items.</doc>
-<msg timestamp="20210418 19:18:59.798" level="INFO">${C} = ['.....', '.....', '.....', '.....', '.....', '.....', '.....', '.....', '.....', '.....', '-CANTIDAD-']</msg>
-<status status="PASS" starttime="20210418 19:18:59.797" endtime="20210418 19:18:59.798"/>
-</kw>
-<kw name="Get values from JSON" library="RPA.JSON">
-<var>${proceduresIds}</var>
-<arg>${facturacion}</arg>
-<arg>$.proceduresData.procedures[*].procedureId</arg>
-<doc>Get all values from a JSON serializable object that match the given expression.</doc>
-<msg timestamp="20210418 19:18:59.798" level="INFO">Get values from JSON with expression: "$.proceduresData.procedures[*].procedureId"</msg>
-<msg timestamp="20210418 19:18:59.815" level="INFO">${proceduresIds} = [45, 23]</msg>
-<status status="PASS" starttime="20210418 19:18:59.798" endtime="20210418 19:18:59.815"/>
-</kw>
-<kw name="Get values from JSON" library="RPA.JSON">
-<var>${costsIds}</var>
-<arg>${facturacion}</arg>
-<arg>$.costData.procedures[*].id</arg>
-<doc>Get all values from a JSON serializable object that match the given expression.</doc>
-<msg timestamp="20210418 19:18:59.816" level="INFO">Get values from JSON with expression: "$.costData.procedures[*].id"</msg>
-<msg timestamp="20210418 19:18:59.833" level="INFO">${costsIds} = [45, 23, 30]</msg>
-<status status="PASS" starttime="20210418 19:18:59.815" endtime="20210418 19:18:59.833"/>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<var>${iterator}</var>
-<arg>0</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20210418 19:18:59.833" level="INFO">${iterator} = 0</msg>
-<status status="PASS" starttime="20210418 19:18:59.833" endtime="20210418 19:18:59.833"/>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<var>${totalCost}</var>
-<arg>0</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20210418 19:18:59.833" level="INFO">${totalCost} = 0</msg>
-<status status="PASS" starttime="20210418 19:18:59.833" endtime="20210418 19:18:59.833"/>
-</kw>
-<for flavor="IN">
-<var>${id}</var>
-<value>@{proceduresIds}</value>
-<iter>
-<var name="${id}">45</var>
-<kw name="Evaluate" library="BuiltIn">
-<var>${costIndex}</var>
-<arg>${costsIds}.index(${id})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:59.834" level="INFO">${costIndex} = 0</msg>
-<status status="PASS" starttime="20210418 19:18:59.834" endtime="20210418 19:18:59.834"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${procedure}</var>
-<arg>${facturacion}</arg>
-<arg>$.costData.procedures[${costIndex}].procedure</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:59.835" level="INFO">Get value from JSON with expression: "$.costData.procedures[0].procedure"</msg>
-<msg timestamp="20210418 19:18:59.934" level="INFO">${procedure} = Radiografía de torax</msg>
-<status status="PASS" starttime="20210418 19:18:59.834" endtime="20210418 19:18:59.934"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${cost}</var>
-<arg>${facturacion}</arg>
-<arg>$.costData.procedures[${costIndex}].value</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:59.935" level="INFO">Get value from JSON with expression: "$.costData.procedures[0].value"</msg>
-<msg timestamp="20210418 19:18:59.953" level="INFO">${cost} = 12.5</msg>
-<status status="PASS" starttime="20210418 19:18:59.934" endtime="20210418 19:18:59.954"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${quantity}</var>
-<arg>${facturacion}</arg>
-<arg>$.proceduresData.procedures[${iterator}].quantity</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:59.954" level="INFO">Get value from JSON with expression: "$.proceduresData.procedures[0].quantity"</msg>
-<msg timestamp="20210418 19:18:59.971" level="INFO">${quantity} = 2</msg>
-<status status="PASS" starttime="20210418 19:18:59.954" endtime="20210418 19:18:59.971"/>
-</kw>
-<kw name="Create Dictionary" library="BuiltIn">
-<var>${Dict}</var>
-<arg>Nombre</arg>
-<arg>${procedure}</arg>
-<arg>Valor</arg>
-<arg>${cost}</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20210418 19:18:59.972" level="INFO">${Dict} = {'Nombre': 'Radiografía de torax', 'Valor': 12.5}</msg>
-<status status="PASS" starttime="20210418 19:18:59.971" endtime="20210418 19:18:59.972"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${N}</arg>
-<arg>${procedure}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:59.972" endtime="20210418 19:18:59.972"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${V}</arg>
-<arg>${cost}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:59.972" endtime="20210418 19:18:59.972"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${C}</arg>
-<arg>..${quantity}..</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:18:59.973" endtime="20210418 19:18:59.973"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${totalCost}</var>
-<arg>${totalCost} + (${cost} * ${quantity})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:59.973" level="INFO">${totalCost} = 25.0</msg>
-<status status="PASS" starttime="20210418 19:18:59.973" endtime="20210418 19:18:59.973"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${iterator}</var>
-<arg>${iterator} + 1</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:59.974" level="INFO">${iterator} = 1</msg>
-<status status="PASS" starttime="20210418 19:18:59.973" endtime="20210418 19:18:59.974"/>
-</kw>
-<status status="PASS" starttime="20210418 19:18:59.834" endtime="20210418 19:18:59.974"/>
-</iter>
-<iter>
-<var name="${id}">23</var>
-<kw name="Evaluate" library="BuiltIn">
-<var>${costIndex}</var>
-<arg>${costsIds}.index(${id})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:18:59.974" level="INFO">${costIndex} = 1</msg>
-<status status="PASS" starttime="20210418 19:18:59.974" endtime="20210418 19:18:59.974"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${procedure}</var>
-<arg>${facturacion}</arg>
-<arg>$.costData.procedures[${costIndex}].procedure</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:59.975" level="INFO">Get value from JSON with expression: "$.costData.procedures[1].procedure"</msg>
-<msg timestamp="20210418 19:18:59.993" level="INFO">${procedure} = Operación de costilla</msg>
-<status status="PASS" starttime="20210418 19:18:59.975" endtime="20210418 19:18:59.993"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${cost}</var>
-<arg>${facturacion}</arg>
-<arg>$.costData.procedures[${costIndex}].value</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:18:59.994" level="INFO">Get value from JSON with expression: "$.costData.procedures[1].value"</msg>
-<msg timestamp="20210418 19:19:00.016" level="INFO">${cost} = 43.5</msg>
-<status status="PASS" starttime="20210418 19:18:59.993" endtime="20210418 19:19:00.016"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${quantity}</var>
-<arg>${facturacion}</arg>
-<arg>$.proceduresData.procedures[${iterator}].quantity</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:19:00.017" level="INFO">Get value from JSON with expression: "$.proceduresData.procedures[1].quantity"</msg>
-<msg timestamp="20210418 19:19:00.034" level="INFO">${quantity} = 1</msg>
-<status status="PASS" starttime="20210418 19:19:00.016" endtime="20210418 19:19:00.034"/>
-</kw>
-<kw name="Create Dictionary" library="BuiltIn">
-<var>${Dict}</var>
-<arg>Nombre</arg>
-<arg>${procedure}</arg>
-<arg>Valor</arg>
-<arg>${cost}</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20210418 19:19:00.035" level="INFO">${Dict} = {'Nombre': 'Operación de costilla', 'Valor': 43.5}</msg>
-<status status="PASS" starttime="20210418 19:19:00.035" endtime="20210418 19:19:00.035"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${N}</arg>
-<arg>${procedure}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:19:00.035" endtime="20210418 19:19:00.036"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${V}</arg>
-<arg>${cost}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:19:00.036" endtime="20210418 19:19:00.036"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${C}</arg>
-<arg>..${quantity}..</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:19:00.036" endtime="20210418 19:19:00.036"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${totalCost}</var>
-<arg>${totalCost} + (${cost} * ${quantity})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:19:00.037" level="INFO">${totalCost} = 68.5</msg>
-<status status="PASS" starttime="20210418 19:19:00.037" endtime="20210418 19:19:00.037"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${iterator}</var>
-<arg>${iterator} + 1</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:19:00.037" level="INFO">${iterator} = 2</msg>
-<status status="PASS" starttime="20210418 19:19:00.037" endtime="20210418 19:19:00.037"/>
-</kw>
-<status status="PASS" starttime="20210418 19:18:59.974" endtime="20210418 19:19:00.037"/>
-</iter>
-<status status="PASS" starttime="20210418 19:18:59.833" endtime="20210418 19:19:00.038"/>
-</for>
-<kw name="Append To List" library="Collections">
-<arg>${N}</arg>
-<arg>-------------------</arg>
-<arg>-COSTO--TOTAL-</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:19:00.038" endtime="20210418 19:19:00.038"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${V}</arg>
-<arg>-------------------</arg>
-<arg>${totalCost}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:19:00.038" endtime="20210418 19:19:00.038"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${C}</arg>
-<arg>-------------------</arg>
-<arg>.....</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:19:00.039" endtime="20210418 19:19:00.039"/>
-</kw>
-<kw name="Create Dictionary" library="BuiltIn">
-<var>${InvoiceList}</var>
-<arg>NOMBRES</arg>
-<arg>${N}</arg>
-<arg>CANTIDAD</arg>
-<arg>${C}</arg>
-<arg>VALORES</arg>
-<arg>${V}</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20210418 19:19:00.039" level="INFO">${InvoiceList} = {'NOMBRES': ['NIT', 'Razon Social', 'Fecha', 'Factura de Cobro', '-------INFORMACION-', 'Nombre', 'Apellido', 'Documento', 'Tipo Documento', 'Direccion', '-------TRATAMIENTO-', 'Radiografía de torax',...</msg>
-<status status="PASS" starttime="20210418 19:19:00.039" endtime="20210418 19:19:00.039"/>
-</kw>
-<kw name="Create Table" library="RPA.Tables">
-<var>${INVOICE}</var>
-<arg>${InvoiceList}</arg>
-<doc>Create Table object from data.</doc>
-<msg timestamp="20210418 19:19:00.040" level="INFO">Created table: Table(columns=['NOMBRES', 'CANTIDAD', 'VALORES'], rows=15)</msg>
-<msg timestamp="20210418 19:19:00.040" level="INFO">${INVOICE} = Table(columns=['NOMBRES', 'CANTIDAD', 'VALORES'], rows=15)</msg>
-<status status="PASS" starttime="20210418 19:19:00.040" endtime="20210418 19:19:00.040"/>
-</kw>
-<kw name="Write Table To Csv" library="RPA.Tables">
-<arg>${INVOICE}</arg>
-<arg>${file_path}</arg>
-<doc>Write a table as a CSV file.</doc>
-<status status="PASS" starttime="20210418 19:19:00.040" endtime="20210418 19:19:00.041"/>
-</kw>
-<kw name="Init S3 Client" library="RPA.Cloud.AWS">
-<arg>aws_key_id=${AWS_KEY_ID}</arg>
-<arg>aws_key=${AWS_KEY}</arg>
-<doc>Initialize AWS S3 client</doc>
-<msg timestamp="20210418 19:19:00.041" level="INFO">Protecting keyword: rpa.cloud.aws.init_s3_client</msg>
-<msg timestamp="20210418 19:19:00.047" level="INFO">Log level changed from NONE to INFO.</msg>
-<status status="PASS" starttime="20210418 19:19:00.041" endtime="20210418 19:19:00.046"/>
-</kw>
-<kw name="Upload File" library="RPA.Cloud.AWS">
-<arg>${BUCKET_NAME}</arg>
-<arg>${file_path}</arg>
-<arg>Invoices${/}factura${type}${document}${date}.csv</arg>
-<doc>Upload single file into bucket</doc>
-<status status="PASS" starttime="20210418 19:19:00.047" endtime="20210418 19:19:01.324"/>
-</kw>
-<status status="PASS" starttime="20210418 19:18:57.376" endtime="20210418 19:19:01.325"/>
-</iter>
-<iter>
-<var name="${i}">4</var>
-<kw name="Get Current Date" library="DateTime">
-<var>${date}</var>
-<doc>Returns current local or UTC time with an optional increment.</doc>
-<msg timestamp="20210418 19:19:01.329" level="INFO">${date} = 2021-04-18 19:19:01.328</msg>
-<status status="PASS" starttime="20210418 19:19:01.327" endtime="20210418 19:19:01.329"/>
-</kw>
-<kw name="Init Sqs Client" library="RPA.Cloud.AWS">
-<arg>aws_key_id=${AWS_KEY_ID}</arg>
-<arg>aws_key=${AWS_KEY}</arg>
-<arg>region=${REGION}</arg>
-<arg>queue_url=${queue_url}</arg>
-<doc>Initialize AWS SQS client</doc>
-<msg timestamp="20210418 19:19:01.330" level="INFO">Protecting keyword: rpa.cloud.aws.init_sqs_client</msg>
-<msg timestamp="20210418 19:19:01.336" level="INFO">Log level changed from NONE to INFO.</msg>
-<status status="PASS" starttime="20210418 19:19:01.329" endtime="20210418 19:19:01.335"/>
-</kw>
-<kw name="Receive Message" library="RPA.Cloud.AWS">
-<var>${mssg}</var>
-<doc>Receive message from queue</doc>
-<msg timestamp="20210418 19:19:01.858" level="INFO">${mssg} = {'MessageId': 'd4be7a90-1721-4ae0-aea4-e881984e261a', 'ReceiptHandle': 'AQEB3XTBsZlr+UzOf4mFJglk0LDxGtq59AktiaR858Gpw1WTqeX9SJefvCKS1HTCuzEEBPfyohlxKL/P7pLY5EEShhLH0iCumk1WIlNgDk6xrjmBJDRsKw5BRUUbfpSq...</msg>
-<status status="PASS" starttime="20210418 19:19:01.336" endtime="20210418 19:19:01.858"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${getMessage}</var>
-<arg>${mssg} is None</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:19:01.859" level="INFO">${getMessage} = False</msg>
-<status status="PASS" starttime="20210418 19:19:01.858" endtime="20210418 19:19:01.859"/>
-</kw>
-<kw name="Log" library="BuiltIn">
-<arg>${getMessage}</arg>
-<doc>Logs the given message with the given level.</doc>
-<msg timestamp="20210418 19:19:01.860" level="INFO">False</msg>
-<status status="PASS" starttime="20210418 19:19:01.859" endtime="20210418 19:19:01.860"/>
-</kw>
-<kw name="Exit For Loop If" library="BuiltIn">
-<arg>${getMessage}</arg>
-<doc>Stops executing the enclosing for loop if the ``condition`` is true.</doc>
-<status status="PASS" starttime="20210418 19:19:01.860" endtime="20210418 19:19:01.861"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${bodyM}</var>
-<arg>json.dumps(${mssg})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:19:01.862" level="INFO">${bodyM} = {"MessageId": "d4be7a90-1721-4ae0-aea4-e881984e261a", "ReceiptHandle": "AQEB3XTBsZlr+UzOf4mFJglk0LDxGtq59AktiaR858Gpw1WTqeX9SJefvCKS1HTCuzEEBPfyohlxKL/P7pLY5EEShhLH0iCumk1WIlNgDk6xrjmBJDRsKw5BRUUbfpSq...</msg>
-<status status="PASS" starttime="20210418 19:19:01.861" endtime="20210418 19:19:01.862"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${receipt_handle}</var>
-<arg>${bodyM}</arg>
-<arg>$.ReceiptHandle</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:19:01.863" level="INFO">Get value from JSON with expression: "$.ReceiptHandle"</msg>
-<msg timestamp="20210418 19:19:01.890" level="INFO">${receipt_handle} = AQEB3XTBsZlr+UzOf4mFJglk0LDxGtq59AktiaR858Gpw1WTqeX9SJefvCKS1HTCuzEEBPfyohlxKL/P7pLY5EEShhLH0iCumk1WIlNgDk6xrjmBJDRsKw5BRUUbfpSqjPpWsTwAEnxh/7bKjsOAlQq/VVwhGKebRZVHmreg6QjHfsadLFBfr5ps4s3ELkSIL8Eqghf8...</msg>
-<status status="PASS" starttime="20210418 19:19:01.862" endtime="20210418 19:19:01.890"/>
-</kw>
-<kw name="Log" library="BuiltIn">
-<arg>${bodyM}</arg>
-<doc>Logs the given message with the given level.</doc>
-<msg timestamp="20210418 19:19:01.891" level="INFO">{"MessageId": "d4be7a90-1721-4ae0-aea4-e881984e261a", "ReceiptHandle": "AQEB3XTBsZlr+UzOf4mFJglk0LDxGtq59AktiaR858Gpw1WTqeX9SJefvCKS1HTCuzEEBPfyohlxKL/P7pLY5EEShhLH0iCumk1WIlNgDk6xrjmBJDRsKw5BRUUbfpSqjPpWsTwAEnxh/7bKjsOAlQq/VVwhGKebRZVHmreg6QjHfsadLFBfr5ps4s3ELkSIL8Eqghf8ixWtwpZKwPzyj6f3pT3u4FLM5k1qGozuk9mNAgXSBNQZNycKDAvUXvUbRNTRrXMA25zAFimOjmEdoEkFJhZalql9kSNUIV/Oh7arrQI+S7s+W2Gd7reknf8Q4tTotipUHmA6NKv9NpEVVTbT1bvRDoFG0JA5RRAutavAM1X2yuXulEDUN+At277z1n9MkbDg9MRIoTVydTCNrn4Mew==", "MD5OfBody": "9ea2c7412d08bdfed6c6aff774cb82a0", "Body": "{user : 1022785423, status : 'AVAILABLE_TO_BILL'}"}</msg>
-<status status="PASS" starttime="20210418 19:19:01.890" endtime="20210418 19:19:01.891"/>
-</kw>
-<kw name="Delete Message" library="RPA.Cloud.AWS">
-<arg>receipt_handle=${receipt_handle}</arg>
-<doc>Delete message in the queue</doc>
-<status status="PASS" starttime="20210418 19:19:01.891" endtime="20210418 19:19:02.003"/>
-</kw>
-<kw name="Create Session" library="RPA.HTTP">
-<arg>httpbin</arg>
-<arg>${URL_WS}</arg>
-<doc>Create Session: create a HTTP session to a server</doc>
-<msg timestamp="20210418 19:19:02.006" level="INFO">Creating Session using : alias=httpbin, url=https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
-<status status="PASS" starttime="20210418 19:19:02.005" endtime="20210418 19:19:02.007"/>
-</kw>
-<kw name="Post Request" library="RPA.HTTP">
-<var>${resp}</var>
-<arg>httpbin</arg>
-<arg>${PATH_WS}</arg>
-<arg>data=${request}</arg>
-<doc>Send a POST request on the session object found using the
-given `alias`</doc>
-<msg timestamp="20210418 19:19:03.575" level="INFO">POST Request : url=https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com/prod/invoice 
- path_url=/prod/invoice 
- headers={'User-Agent': 'python-requests/2.22.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '34'} 
- body=b'{ "operation" : "getInvoiceData" }' 
- </msg>
-<msg timestamp="20210418 19:19:03.590" level="INFO">POST Response : url=https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com/prod/invoice 
- status=200, reason=OK 
- body={"costData":{"module":"management","version":"1.0.0","procedures":[{"id":45,"procedure":"Radiografía de torax","value":12.5},{"id":23,"procedure":"Operación de costilla","value":43.5},{"id":30,"procedure":"Hospitalización en cama x noche","value":11.5}]},"patientData":{"module":"patient","version":"1.0.0","name":"John","lastName":"Doe","document":123123,"type":"passport","address":"Av 12 # 12 -12"},"proceduresData":{"module":"clinicHistory","version":"1.0.0","procedures":[{"id":123,"date":"12/12/2012","procedureId":45,"medicalHeadquarterId":2,"professionalId":1522,"quantity":2},{"id":124,"date":"13/12/2012","procedureId":23,"medicalHeadquarterId":2,"professionalId":1488,"quantity":1}]}} 
- </msg>
-<msg timestamp="20210418 19:19:03.590" level="INFO">/usr/lib/python3.7/site-packages/urllib3/connectionpool.py:1004: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
-  InsecureRequestWarning,</msg>
-<msg timestamp="20210418 19:19:03.590" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
-<status status="PASS" starttime="20210418 19:19:02.008" endtime="20210418 19:19:03.590"/>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<var>${facturacion}</var>
-<arg>${resp.json()}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20210418 19:19:03.592" level="INFO">${facturacion} = {'costData': {'module': 'management', 'version': '1.0.0', 'procedures': [{'id': 45, 'procedure': 'Radiografía de torax', 'value': 12.5}, {'id': 23, 'procedure': 'Operación de costilla', 'value': 43.5}...</msg>
-<status status="PASS" starttime="20210418 19:19:03.591" endtime="20210418 19:19:03.592"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${name}</var>
-<arg>${facturacion}</arg>
-<arg>$.patientData.name</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:19:03.593" level="INFO">Get value from JSON with expression: "$.patientData.name"</msg>
-<msg timestamp="20210418 19:19:03.616" level="INFO">${name} = John</msg>
-<status status="PASS" starttime="20210418 19:19:03.592" endtime="20210418 19:19:03.616"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${lastName}</var>
-<arg>${facturacion}</arg>
-<arg>$.patientData.lastName</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:19:03.616" level="INFO">Get value from JSON with expression: "$.patientData.lastName"</msg>
-<msg timestamp="20210418 19:19:03.637" level="INFO">${lastName} = Doe</msg>
-<status status="PASS" starttime="20210418 19:19:03.616" endtime="20210418 19:19:03.637"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${document}</var>
-<arg>${facturacion}</arg>
-<arg>$.patientData.document</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:19:03.638" level="INFO">Get value from JSON with expression: "$.patientData.document"</msg>
-<msg timestamp="20210418 19:19:03.656" level="INFO">${document} = 123123</msg>
-<status status="PASS" starttime="20210418 19:19:03.637" endtime="20210418 19:19:03.656"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${type}</var>
-<arg>${facturacion}</arg>
-<arg>$.patientData.type</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:19:03.657" level="INFO">Get value from JSON with expression: "$.patientData.type"</msg>
-<msg timestamp="20210418 19:19:03.674" level="INFO">${type} = passport</msg>
-<status status="PASS" starttime="20210418 19:19:03.656" endtime="20210418 19:19:03.674"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${address}</var>
-<arg>${facturacion}</arg>
-<arg>$.patientData.address</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:19:03.675" level="INFO">Get value from JSON with expression: "$.patientData.address"</msg>
-<msg timestamp="20210418 19:19:03.692" level="INFO">${address} = Av 12 # 12 -12</msg>
-<status status="PASS" starttime="20210418 19:19:03.674" endtime="20210418 19:19:03.692"/>
-</kw>
-<kw name="Create List" library="BuiltIn">
-<var>${N}</var>
-<arg>NIT</arg>
-<arg>Razon Social</arg>
-<arg>Fecha</arg>
-<arg>Factura de Cobro</arg>
-<arg>-------INFORMACION-</arg>
-<arg>Nombre</arg>
-<arg>Apellido</arg>
-<arg>Documento</arg>
-<arg>Tipo Documento</arg>
-<arg>Direccion</arg>
-<arg>-------TRATAMIENTO-</arg>
-<doc>Returns a list containing given items.</doc>
-<msg timestamp="20210418 19:19:03.692" level="INFO">${N} = ['NIT', 'Razon Social', 'Fecha', 'Factura de Cobro', '-------INFORMACION-', 'Nombre', 'Apellido', 'Documento', 'Tipo Documento', 'Direccion', '-------TRATAMIENTO-']</msg>
-<status status="PASS" starttime="20210418 19:19:03.692" endtime="20210418 19:19:03.693"/>
-</kw>
-<kw name="Create List" library="BuiltIn">
-<var>${V}</var>
-<arg>12345678</arg>
-<arg>ClincaABC</arg>
-<arg>${date}</arg>
-<arg>${type}${document}</arg>
-<arg>-PERSONAL-------</arg>
-<arg>${name}</arg>
-<arg>${lastName}</arg>
-<arg>${document}</arg>
-<arg>${type}</arg>
-<arg>${address}</arg>
-<arg>-COSTO-------</arg>
-<doc>Returns a list containing given items.</doc>
-<msg timestamp="20210418 19:19:03.693" level="INFO">${V} = ['12345678', 'ClincaABC', '2021-04-18 19:19:01.328', 'passport123123', '-PERSONAL-------', 'John', 'Doe', 123123, 'passport', 'Av 12 # 12 -12', '-COSTO-------']</msg>
-<status status="PASS" starttime="20210418 19:19:03.693" endtime="20210418 19:19:03.693"/>
-</kw>
-<kw name="Create List" library="BuiltIn">
-<var>${C}</var>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>.....</arg>
-<arg>-CANTIDAD-</arg>
-<doc>Returns a list containing given items.</doc>
-<msg timestamp="20210418 19:19:03.694" level="INFO">${C} = ['.....', '.....', '.....', '.....', '.....', '.....', '.....', '.....', '.....', '.....', '-CANTIDAD-']</msg>
-<status status="PASS" starttime="20210418 19:19:03.693" endtime="20210418 19:19:03.694"/>
-</kw>
-<kw name="Get values from JSON" library="RPA.JSON">
-<var>${proceduresIds}</var>
-<arg>${facturacion}</arg>
-<arg>$.proceduresData.procedures[*].procedureId</arg>
-<doc>Get all values from a JSON serializable object that match the given expression.</doc>
-<msg timestamp="20210418 19:19:03.694" level="INFO">Get values from JSON with expression: "$.proceduresData.procedures[*].procedureId"</msg>
-<msg timestamp="20210418 19:19:03.711" level="INFO">${proceduresIds} = [45, 23]</msg>
-<status status="PASS" starttime="20210418 19:19:03.694" endtime="20210418 19:19:03.711"/>
-</kw>
-<kw name="Get values from JSON" library="RPA.JSON">
-<var>${costsIds}</var>
-<arg>${facturacion}</arg>
-<arg>$.costData.procedures[*].id</arg>
-<doc>Get all values from a JSON serializable object that match the given expression.</doc>
-<msg timestamp="20210418 19:19:03.711" level="INFO">Get values from JSON with expression: "$.costData.procedures[*].id"</msg>
-<msg timestamp="20210418 19:19:03.728" level="INFO">${costsIds} = [45, 23, 30]</msg>
-<status status="PASS" starttime="20210418 19:19:03.711" endtime="20210418 19:19:03.728"/>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<var>${iterator}</var>
-<arg>0</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20210418 19:19:03.729" level="INFO">${iterator} = 0</msg>
-<status status="PASS" starttime="20210418 19:19:03.728" endtime="20210418 19:19:03.729"/>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<var>${totalCost}</var>
-<arg>0</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20210418 19:19:03.729" level="INFO">${totalCost} = 0</msg>
-<status status="PASS" starttime="20210418 19:19:03.729" endtime="20210418 19:19:03.729"/>
-</kw>
-<for flavor="IN">
-<var>${id}</var>
-<value>@{proceduresIds}</value>
-<iter>
-<var name="${id}">45</var>
-<kw name="Evaluate" library="BuiltIn">
-<var>${costIndex}</var>
-<arg>${costsIds}.index(${id})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:19:03.730" level="INFO">${costIndex} = 0</msg>
-<status status="PASS" starttime="20210418 19:19:03.730" endtime="20210418 19:19:03.730"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${procedure}</var>
-<arg>${facturacion}</arg>
-<arg>$.costData.procedures[${costIndex}].procedure</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:19:03.730" level="INFO">Get value from JSON with expression: "$.costData.procedures[0].procedure"</msg>
-<msg timestamp="20210418 19:19:03.749" level="INFO">${procedure} = Radiografía de torax</msg>
-<status status="PASS" starttime="20210418 19:19:03.730" endtime="20210418 19:19:03.749"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${cost}</var>
-<arg>${facturacion}</arg>
-<arg>$.costData.procedures[${costIndex}].value</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:19:03.749" level="INFO">Get value from JSON with expression: "$.costData.procedures[0].value"</msg>
-<msg timestamp="20210418 19:19:03.767" level="INFO">${cost} = 12.5</msg>
-<status status="PASS" starttime="20210418 19:19:03.749" endtime="20210418 19:19:03.767"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${quantity}</var>
-<arg>${facturacion}</arg>
-<arg>$.proceduresData.procedures[${iterator}].quantity</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:19:03.767" level="INFO">Get value from JSON with expression: "$.proceduresData.procedures[0].quantity"</msg>
-<msg timestamp="20210418 19:19:03.785" level="INFO">${quantity} = 2</msg>
-<status status="PASS" starttime="20210418 19:19:03.767" endtime="20210418 19:19:03.785"/>
-</kw>
-<kw name="Create Dictionary" library="BuiltIn">
-<var>${Dict}</var>
-<arg>Nombre</arg>
-<arg>${procedure}</arg>
-<arg>Valor</arg>
-<arg>${cost}</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20210418 19:19:03.785" level="INFO">${Dict} = {'Nombre': 'Radiografía de torax', 'Valor': 12.5}</msg>
-<status status="PASS" starttime="20210418 19:19:03.785" endtime="20210418 19:19:03.785"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${N}</arg>
-<arg>${procedure}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:19:03.786" endtime="20210418 19:19:03.786"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${V}</arg>
-<arg>${cost}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:19:03.786" endtime="20210418 19:19:03.786"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${C}</arg>
-<arg>..${quantity}..</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:19:03.786" endtime="20210418 19:19:03.787"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${totalCost}</var>
-<arg>${totalCost} + (${cost} * ${quantity})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:19:03.787" level="INFO">${totalCost} = 25.0</msg>
-<status status="PASS" starttime="20210418 19:19:03.787" endtime="20210418 19:19:03.787"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${iterator}</var>
-<arg>${iterator} + 1</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:19:03.788" level="INFO">${iterator} = 1</msg>
-<status status="PASS" starttime="20210418 19:19:03.787" endtime="20210418 19:19:03.788"/>
-</kw>
-<status status="PASS" starttime="20210418 19:19:03.729" endtime="20210418 19:19:03.788"/>
-</iter>
-<iter>
-<var name="${id}">23</var>
-<kw name="Evaluate" library="BuiltIn">
-<var>${costIndex}</var>
-<arg>${costsIds}.index(${id})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:19:03.788" level="INFO">${costIndex} = 1</msg>
-<status status="PASS" starttime="20210418 19:19:03.788" endtime="20210418 19:19:03.788"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${procedure}</var>
-<arg>${facturacion}</arg>
-<arg>$.costData.procedures[${costIndex}].procedure</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:19:03.789" level="INFO">Get value from JSON with expression: "$.costData.procedures[1].procedure"</msg>
-<msg timestamp="20210418 19:19:03.807" level="INFO">${procedure} = Operación de costilla</msg>
-<status status="PASS" starttime="20210418 19:19:03.789" endtime="20210418 19:19:03.807"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${cost}</var>
-<arg>${facturacion}</arg>
-<arg>$.costData.procedures[${costIndex}].value</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:19:03.807" level="INFO">Get value from JSON with expression: "$.costData.procedures[1].value"</msg>
-<msg timestamp="20210418 19:19:03.824" level="INFO">${cost} = 43.5</msg>
-<status status="PASS" starttime="20210418 19:19:03.807" endtime="20210418 19:19:03.824"/>
-</kw>
-<kw name="Get value from JSON" library="RPA.JSON">
-<var>${quantity}</var>
-<arg>${facturacion}</arg>
-<arg>$.proceduresData.procedures[${iterator}].quantity</arg>
-<doc>Get a single value from a JSON serializable object that matches the given expression.</doc>
-<msg timestamp="20210418 19:19:03.825" level="INFO">Get value from JSON with expression: "$.proceduresData.procedures[1].quantity"</msg>
-<msg timestamp="20210418 19:19:03.842" level="INFO">${quantity} = 1</msg>
-<status status="PASS" starttime="20210418 19:19:03.824" endtime="20210418 19:19:03.842"/>
-</kw>
-<kw name="Create Dictionary" library="BuiltIn">
-<var>${Dict}</var>
-<arg>Nombre</arg>
-<arg>${procedure}</arg>
-<arg>Valor</arg>
-<arg>${cost}</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20210418 19:19:03.842" level="INFO">${Dict} = {'Nombre': 'Operación de costilla', 'Valor': 43.5}</msg>
-<status status="PASS" starttime="20210418 19:19:03.842" endtime="20210418 19:19:03.842"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${N}</arg>
-<arg>${procedure}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:19:03.842" endtime="20210418 19:19:03.843"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${V}</arg>
-<arg>${cost}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:19:03.843" endtime="20210418 19:19:03.843"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${C}</arg>
-<arg>..${quantity}..</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:19:03.843" endtime="20210418 19:19:03.843"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${totalCost}</var>
-<arg>${totalCost} + (${cost} * ${quantity})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:19:03.844" level="INFO">${totalCost} = 68.5</msg>
-<status status="PASS" starttime="20210418 19:19:03.844" endtime="20210418 19:19:03.844"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${iterator}</var>
-<arg>${iterator} + 1</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:19:03.844" level="INFO">${iterator} = 2</msg>
-<status status="PASS" starttime="20210418 19:19:03.844" endtime="20210418 19:19:03.844"/>
-</kw>
-<status status="PASS" starttime="20210418 19:19:03.788" endtime="20210418 19:19:03.844"/>
-</iter>
-<status status="PASS" starttime="20210418 19:19:03.729" endtime="20210418 19:19:03.845"/>
-</for>
-<kw name="Append To List" library="Collections">
-<arg>${N}</arg>
-<arg>-------------------</arg>
-<arg>-COSTO--TOTAL-</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:19:03.845" endtime="20210418 19:19:03.845"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${V}</arg>
-<arg>-------------------</arg>
-<arg>${totalCost}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:19:03.845" endtime="20210418 19:19:03.845"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${C}</arg>
-<arg>-------------------</arg>
-<arg>.....</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20210418 19:19:03.845" endtime="20210418 19:19:03.846"/>
-</kw>
-<kw name="Create Dictionary" library="BuiltIn">
-<var>${InvoiceList}</var>
-<arg>NOMBRES</arg>
-<arg>${N}</arg>
-<arg>CANTIDAD</arg>
-<arg>${C}</arg>
-<arg>VALORES</arg>
-<arg>${V}</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20210418 19:19:03.847" level="INFO">${InvoiceList} = {'NOMBRES': ['NIT', 'Razon Social', 'Fecha', 'Factura de Cobro', '-------INFORMACION-', 'Nombre', 'Apellido', 'Documento', 'Tipo Documento', 'Direccion', '-------TRATAMIENTO-', 'Radiografía de torax',...</msg>
-<status status="PASS" starttime="20210418 19:19:03.846" endtime="20210418 19:19:03.847"/>
-</kw>
-<kw name="Create Table" library="RPA.Tables">
-<var>${INVOICE}</var>
-<arg>${InvoiceList}</arg>
-<doc>Create Table object from data.</doc>
-<msg timestamp="20210418 19:19:03.847" level="INFO">Created table: Table(columns=['NOMBRES', 'CANTIDAD', 'VALORES'], rows=15)</msg>
-<msg timestamp="20210418 19:19:03.847" level="INFO">${INVOICE} = Table(columns=['NOMBRES', 'CANTIDAD', 'VALORES'], rows=15)</msg>
-<status status="PASS" starttime="20210418 19:19:03.847" endtime="20210418 19:19:03.847"/>
-</kw>
-<kw name="Write Table To Csv" library="RPA.Tables">
-<arg>${INVOICE}</arg>
-<arg>${file_path}</arg>
-<doc>Write a table as a CSV file.</doc>
-<status status="PASS" starttime="20210418 19:19:03.848" endtime="20210418 19:19:03.848"/>
-</kw>
-<kw name="Init S3 Client" library="RPA.Cloud.AWS">
-<arg>aws_key_id=${AWS_KEY_ID}</arg>
-<arg>aws_key=${AWS_KEY}</arg>
-<doc>Initialize AWS S3 client</doc>
-<msg timestamp="20210418 19:19:03.849" level="INFO">Protecting keyword: rpa.cloud.aws.init_s3_client</msg>
-<msg timestamp="20210418 19:19:03.854" level="INFO">Log level changed from NONE to INFO.</msg>
-<status status="PASS" starttime="20210418 19:19:03.848" endtime="20210418 19:19:03.853"/>
-</kw>
-<kw name="Upload File" library="RPA.Cloud.AWS">
-<arg>${BUCKET_NAME}</arg>
-<arg>${file_path}</arg>
-<arg>Invoices${/}factura${type}${document}${date}.csv</arg>
-<doc>Upload single file into bucket</doc>
-<status status="PASS" starttime="20210418 19:19:03.854" endtime="20210418 19:19:05.162"/>
-</kw>
-<status status="PASS" starttime="20210418 19:19:01.326" endtime="20210418 19:19:05.163"/>
-</iter>
-<iter>
-<var name="${i}">5</var>
-<kw name="Get Current Date" library="DateTime">
-<var>${date}</var>
-<doc>Returns current local or UTC time with an optional increment.</doc>
-<msg timestamp="20210418 19:19:05.166" level="INFO">${date} = 2021-04-18 19:19:05.166</msg>
-<status status="PASS" starttime="20210418 19:19:05.165" endtime="20210418 19:19:05.166"/>
-</kw>
-<kw name="Init Sqs Client" library="RPA.Cloud.AWS">
-<arg>aws_key_id=${AWS_KEY_ID}</arg>
-<arg>aws_key=${AWS_KEY}</arg>
-<arg>region=${REGION}</arg>
-<arg>queue_url=${queue_url}</arg>
-<doc>Initialize AWS SQS client</doc>
-<msg timestamp="20210418 19:19:05.167" level="INFO">Protecting keyword: rpa.cloud.aws.init_sqs_client</msg>
-<msg timestamp="20210418 19:19:05.174" level="INFO">Log level changed from NONE to INFO.</msg>
-<status status="PASS" starttime="20210418 19:19:05.167" endtime="20210418 19:19:05.174"/>
-</kw>
-<kw name="Receive Message" library="RPA.Cloud.AWS">
-<var>${mssg}</var>
-<doc>Receive message from queue</doc>
-<msg timestamp="20210418 19:19:05.760" level="INFO">${mssg} = None</msg>
-<status status="PASS" starttime="20210418 19:19:05.174" endtime="20210418 19:19:05.760"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${getMessage}</var>
-<arg>${mssg} is None</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20210418 19:19:05.763" level="INFO">${getMessage} = True</msg>
-<status status="PASS" starttime="20210418 19:19:05.761" endtime="20210418 19:19:05.763"/>
-</kw>
-<kw name="Log" library="BuiltIn">
-<arg>${getMessage}</arg>
-<doc>Logs the given message with the given level.</doc>
-<msg timestamp="20210418 19:19:05.766" level="INFO">True</msg>
-<status status="PASS" starttime="20210418 19:19:05.764" endtime="20210418 19:19:05.766"/>
-</kw>
-<kw name="Exit For Loop If" library="BuiltIn">
-<arg>${getMessage}</arg>
-<doc>Stops executing the enclosing for loop if the ``condition`` is true.</doc>
-<msg timestamp="20210418 19:19:05.768" level="INFO">Exiting for loop altogether.</msg>
-<status status="PASS" starttime="20210418 19:19:05.767" endtime="20210418 19:19:05.768"/>
-</kw>
-<status status="PASS" starttime="20210418 19:19:05.164" endtime="20210418 19:19:05.769"/>
-</iter>
-<status status="PASS" starttime="20210418 19:18:44.390" endtime="20210418 19:19:05.873"/>
+<status status="PASS" starttime="20210418 21:07:45.513" endtime="20210418 21:07:51.028"/>
 </for>
 <kw name="Log" library="BuiltIn">
 <arg>No existen mas datos para procesar.</arg>
 <doc>Logs the given message with the given level.</doc>
-<msg timestamp="20210418 19:19:05.874" level="INFO">No existen mas datos para procesar.</msg>
-<status status="PASS" starttime="20210418 19:19:05.874" endtime="20210418 19:19:05.874"/>
+<msg timestamp="20210418 21:07:51.029" level="INFO">No existen mas datos para procesar.</msg>
+<status status="PASS" starttime="20210418 21:07:51.029" endtime="20210418 21:07:51.029"/>
 </kw>
-<status status="PASS" starttime="20210418 19:18:44.389" endtime="20210418 19:19:05.875"/>
+<status status="PASS" starttime="20210418 21:07:45.512" endtime="20210418 21:07:51.030"/>
 </test>
-<status status="PASS" starttime="20210418 19:18:44.201" endtime="20210418 19:19:05.875"/>
+<status status="PASS" starttime="20210418 21:07:45.319" endtime="20210418 21:07:51.030"/>
 </suite>
 <statistics>
 <total>

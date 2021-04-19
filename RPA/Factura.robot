@@ -10,10 +10,11 @@ Library    RPA.HTTP
 *** Variables ***
 ${file_path} =  /home/UA/2/ArquitecturasNuevaGeneracion/Robot/NGArchitecture/RPA/factura.csv
 #${file_path} =  C:\Documents\factura.csv
+${STATUS} =  AVAILABLE_TO_BILL
 # -------------------------- WEBSERVICE --------------------------
 ${URL_WS} =  https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com
 ${PATH_WS} =  /prod/invoice
-${request} =    { "operation" : "getInvoiceData" }
+${operation} =     "operation" : "getInvoiceData", "id" :
 # -------------------------- AWS --------------------------
 ${AWS_KEY}=    SPp6bUylsk25LgnxM5BuMGKg/UwFoRwVYWjdjMmL
 ${AWS_KEY_ID}=   AKIA4VCQAFVF26RJ5IPY
@@ -30,22 +31,30 @@ GENERATE INVOICE
         # -------------------------- RECEIVE SQS MESSAGE --------------------------
         Init Sqs Client    aws_key_id=${AWS_KEY_ID}    aws_key=${AWS_KEY}    region=${REGION}    queue_url=${queue_url}
         ${mssg}=    Receive Message
+
+        # -------------------------- LOOP VALIDATION --------------------------
         ${getMessage} =    Evaluate    ${mssg} is None
         LOG    ${getMessage}
         Exit For Loop If    ${getMessage}
-        
+
         ${bodyM}=    Evaluate    json.dumps(${mssg})
         ${receipt_handle}=    Get value from JSON    ${bodyM}    $.ReceiptHandle
-        LOG    ${bodyM}
         Delete Message    receipt_handle=${receipt_handle}
+
         # CON ESTO SE CREA EL BODY PARA CONSULTAR EL SERVICIO DEL API COMPOSITION
-        #${bodyM}=    Get value from JSON    ${bodyM}    $.Body
-        #${bodyM}=    Evaluate    json.load(${bodyM})
-        #${status}=    Get value from JSON    ${bodyM}    $.status
-        #${docToBill}=    Get value from JSON    ${bodyM}    $.user
-        #LOG    ${docToBill} -- ${status}
+        ${bodyM}=    Get value from JSON    ${bodyM}    $.Body
+        ${bodyM}=    Evaluate    json.dumps(${bodyM})
+        ${status}=    Get value from JSON    ${bodyM}    $.status
+        ${docToBill}=    Get value from JSON    ${bodyM}    $.user
+        LOG    ${docToBill} -- ${status}
+        
+        # -------------------------- LOOP VALIDATION --------------------------
+        ${getStatus} =    Evaluate    $status != $STATUS
+        LOG    ${getStatus}
+        Exit For Loop If    ${getStatus}
 
         # -------------------------- CONSUME WEBSERVICE --------------------------
+        ${request} =    Set Variable    { ${operation} ${docToBill}}
         Create Session    httpbin    ${URL_WS}
         ${resp}=    Post Request    httpbin    ${PATH_WS}    data=${request}
         ${facturacion}=    Set Variable    ${resp.json()}
