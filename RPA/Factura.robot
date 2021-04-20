@@ -15,14 +15,15 @@ ${STATUS} =  AVAILABLE_TO_BILL
 ${URL_WS} =  https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com
 ${PATH_WS} =  /prod/invoice
 ${operation} =     "operation" : "getInvoiceData", "id" :
+# -------------------------- WEBSERVICE FACT--------------------------
+${operationSave} =     "operation" : "saveFinanceData", "data":
+${PATH_WS_SAVE} =  /prod/finance/save-data
 # -------------------------- AWS --------------------------
 ${AWS_KEY}=    SPp6bUylsk25LgnxM5BuMGKg/UwFoRwVYWjdjMmL
 ${AWS_KEY_ID}=   AKIA4VCQAFVF26RJ5IPY
 ${BUCKET_NAME}=   invoiceservices
 ${REGION}=   us-east-2
 ${queue_url} =    https://sqs.us-east-2.amazonaws.com/869898661195/SalidaPacientes
-
-
 
 *** Tasks ***
 GENERATE INVOICE
@@ -35,6 +36,8 @@ GENERATE INVOICE
         # -------------------------- LOOP VALIDATION --------------------------
         ${getMessage} =    Evaluate    ${mssg} is None
         Exit For Loop If    ${getMessage}
+        Log To Console    Inicia Generación factura ${date}
+        Log To Console    Mensaje recibido --- ${mssg}
 
         ${bodyM}=    Evaluate    json.dumps(${mssg})
         ${receipt_handle}=    Get value from JSON    ${bodyM}    $.ReceiptHandle
@@ -65,7 +68,7 @@ GENERATE INVOICE
         ${address}=     Get value from JSON     ${facturacion}   $.patientData.address
         # DATA IS NOT IN JSON
         ${N} =    Create List    NIT    Razon Social    Fecha    Factura de Cobro    -------INFORMACION-    Nombre    Apellido    Documento    Tipo Documento    Direccion    -------TRATAMIENTO-
-        ${V} =    Create List    12345678    ClincaABC    ${date}    ${type}${document}    -PERSONAL-------    ${name}    ${lastName}    ${document}    ${type}    ${address}    -COSTO-------
+        ${V} =    Create List    12345678    ClincaABC    ${date}    ${document}_${date}    -PERSONAL-------    ${name}    ${lastName}    ${document}    ${type}    ${address}    -COSTO-------
         ${C} =    Create List    .....    .....    .....    .....    .....    .....    .....    .....    .....    .....    -CANTIDAD-
         
         # COST DATA IN JSON
@@ -94,11 +97,18 @@ GENERATE INVOICE
         # CREATE TABLE
         ${InvoiceList} =    Create Dictionary    NOMBRES    ${N}    CANTIDAD    ${C}    VALORES    ${V}
         ${INVOICE}=    Create table    ${InvoiceList}
+
+        # -------------------------- CONSUME WEBSERVICE --------------------------
+        ${request} =    Set Variable    {${operationSave}{"id":"${document}_${date}", "timestamp":"${date}","state": "generated"}}
+        Create Session    httpbin    ${URL_WS}
+        ${respsave}=    Post Request    httpbin    ${PATH_WS_SAVE}    data=${request}
+        Log to Console    ${respsave}
+
         # CREATE CSV FILE
         Write table to CSV    ${INVOICE}    ${file_path}
         
         # -------------------------- UPLOAD FILE TO CSV --------------------------
         Init S3 Client    aws_key_id=${AWS_KEY_ID}    aws_key=${AWS_KEY}
-        Upload File    ${BUCKET_NAME}    ${file_path}    Invoices${/}factura${type}${document}${date}.csv
+        Upload File    ${BUCKET_NAME}    ${file_path}    Invoices${/}factura${document}_${date}.csv
     END
-    LOG    No existen mas datos para procesar.
+    Log To Console    No existen mas datos para procesar.
