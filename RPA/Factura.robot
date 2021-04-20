@@ -26,6 +26,14 @@ ${REGION}=   us-east-2
 ${queue_url} =    https://sqs.us-east-2.amazonaws.com/869898661195/SalidaPacientes
 
 *** Tasks ***
+INVOICE
+    FOR    ${i}    IN RANGE    9999999
+        GENERATE INVOICE
+        Sleep    1m
+    END
+
+
+*** Keywords ***
 GENERATE INVOICE
     FOR    ${i}    IN RANGE    9999999
         ${date}=    Get Current Date
@@ -111,4 +119,4 @@ GENERATE INVOICE
         Init S3 Client    aws_key_id=${AWS_KEY_ID}    aws_key=${AWS_KEY}
         Upload File    ${BUCKET_NAME}    ${file_path}    Invoices${/}factura${document}_${date}.csv
     END
-    Log To Console    No existen mas datos para procesar.
+    Log To Console    No existen mas datos para procesar. ${date}
