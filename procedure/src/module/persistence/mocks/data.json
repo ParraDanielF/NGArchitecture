@@ -1,0 +1,22 @@
+{
+    "module" : "Procedure",
+    "version" : "1.0.0",
+    "procedures" : [
+        {
+            "id" : 123,
+            "date" : "12/12/2012",
+            "procedureId" : 45,
+            "medicalHeadquarterId" : 2,
+            "professionalId" : 1522,
+            "quantity" : 2
+        },
+        {
+            "id" : 124,
+            "date" : "13/12/2012",
+            "procedureId" : 23,
+            "medicalHeadquarterId" : 2,
+            "professionalId" : 1488,
+            "quantity" : 1
+        }
+    ]
+}
