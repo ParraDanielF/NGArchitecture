@@ -10,3 +10,7 @@ Deben tener instalado **python3** y **pip**.
 
 Para ejecutar el robot:
 > **robot Factura.robot**
+
+Si va a ejecutar el robot en Windows, cambie el atributo
+> **#${file_path}**
+Utilice una ruta en su equipo para almacenar el CSV generado.

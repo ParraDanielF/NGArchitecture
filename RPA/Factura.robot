@@ -7,75 +7,116 @@ Library    RPA.JSON
 Library    RPA.Cloud.AWS
 Library    RPA.HTTP
 
-
 *** Variables ***
 ${file_path} =  /home/UA/2/ArquitecturasNuevaGeneracion/Robot/NGArchitecture/RPA/factura.csv
+#${file_path} =  C:\Documents\factura.csv
+${STATUS} =  AVAILABLE_TO_BILL
 # -------------------------- WEBSERVICE --------------------------
 ${URL_WS} =  https://rkbxeoc25h.execute-api.us-east-2.amazonaws.com
 ${PATH_WS} =  /prod/invoice
-${request} =    { "operation" : "getInvoiceData" }
+${operation} =     "operation" : "getInvoiceData", "id" :
+# -------------------------- WEBSERVICE FACT--------------------------
+${operationSave} =     "operation" : "saveFinanceData", "data":
+${PATH_WS_SAVE} =  /prod/finance/save-data
 # -------------------------- AWS --------------------------
 ${AWS_KEY}=    SPp6bUylsk25LgnxM5BuMGKg/UwFoRwVYWjdjMmL
 ${AWS_KEY_ID}=   AKIA4VCQAFVF26RJ5IPY
 ${BUCKET_NAME}=   invoiceservices
+${REGION}=   us-east-2
+${queue_url} =    https://sqs.us-east-2.amazonaws.com/869898661195/SalidaPacientes
 
 *** Tasks ***
-Files to Table
-
-    # -------------------------- CONSUME WEBSERVICE --------------------------
-    Create Session    httpbin    ${URL_WS}
-    ${resp}=    Post Request    httpbin    ${PATH_WS}    data=${request}
-    ${facturacion}=    Set Variable    ${resp.json()}
-
-    # -------------------------- GENERATE INVOICE --------------------------
-    ${date}=    Get Current Date
-    # PATIENT DATA IN JSON
-    ${name}=     Get value from JSON     ${facturacion}   $.patientData.name
-    ${lastName}=     Get value from JSON     ${facturacion}   $.patientData.lastName
-    ${document}=     Get value from JSON     ${facturacion}   $.patientData.document
-    ${type}=     Get value from JSON     ${facturacion}   $.patientData.type
-    ${address}=     Get value from JSON     ${facturacion}   $.patientData.address
-    # DATA IS NOT IN JSON
-    ${N} =    Create List    NIT    Razon Social    Fecha    Factura de Cobro    -------INFORMACION-    Nombre    Apellido    Documento    Tipo Documento    Direccion    -------TRATAMIENTO-
-    ${V} =    Create List    12345678    ClincaABC    ${date}    ${type}${document}    -PERSONAL-------    ${name}    ${lastName}    ${document}    ${type}    ${address}    -COSTO-------
-    ${C} =    Create List    .....    .....    .....    .....    .....    .....    .....    .....    .....    .....    .....
-    
-    # COST DATA IN JSON
-    ${proceduresIds}=     Get values from JSON    ${facturacion}    $.proceduresData.procedures[*].procedureId
-    ${costsIds}=     Get values from JSON    ${facturacion}    $.costData.procedures[*].id
-    ${iterator}=    Set Variable    0
-    ${totalCost}=    Set Variable    0
-    FOR    ${id}    IN    @{proceduresIds}
-        ${costIndex} =    Evaluate    ${costsIds}.index(${id})
-        ${procedure}=     Get value from JSON     ${facturacion}   $.costData.procedures[${costIndex}].procedure
-        ${cost}=     Get value from JSON     ${facturacion}   $.costData.procedures[${costIndex}].value
-        ${quantity}     Get value from JSON     ${facturacion}   $.proceduresData.procedures[${iterator}].quantity
-        # ADD DATA TO LISTS N, V AND C.
-        ${Dict}=    Create Dictionary    Nombre    ${procedure}    Valor    ${cost}
-        Append to List    ${N}    ${procedure}
-        Append to List    ${V}    ${cost}
-        Append to List    ${C}    ..${quantity}..
-        # TOTAL COST
-        ${totalCost}=    Evaluate    ${totalCost} + (${cost} * ${quantity})
-        ${iterator}=    Evaluate    ${iterator} + 1
+INVOICE
+    FOR    ${i}    IN RANGE    9999999
+        GENERATE INVOICE
+        Sleep    1m
     END
-    # APPEND TO LIST LAST ROWS
-    Append to List    ${N}    -------------------    -COSTO--TOTAL-
-    Append to List    ${V}    -------------------    ${totalCost}
-    Append to List    ${C}    .....    .....
-    # CREATE TABLE
-    ${InvoiceList} =    Create Dictionary    NOMBRES    ${N}    CANTIDAD    ${C}    VALORES    ${V}
-    ${INVOICE}=    Create table    ${InvoiceList}
-    # CREATE CSV FILE
-    Write table to CSV    ${INVOICE}    ${file_path}
-    
-    # -------------------------- UPLOAD FILE TO CSV --------------------------
-    Init S3 Client    aws_key_id=${AWS_KEY_ID}    aws_key=${AWS_KEY}
-    Upload File    ${BUCKET_NAME}    ${file_path}    Invoices${/}factura${type}${document}.csv
 
-# Debe llevar NIT, razón social, fecha de expedición de la factura, 
-# detalle, base gravable, detalle de impuestos
-# y la referencia o numeración de la factura
-# ah y expresar que es una factura
-# Porque puede ser un recibo de caja menor, o una nota crédito o en fin, debe especificar el doc
-# yyy por último especificar el régimen
+
+*** Keywords ***
+GENERATE INVOICE
+    FOR    ${i}    IN RANGE    9999999
+        ${date}=    Get Current Date
+        # -------------------------- RECEIVE SQS MESSAGE --------------------------
+        Init Sqs Client    aws_key_id=${AWS_KEY_ID}    aws_key=${AWS_KEY}    region=${REGION}    queue_url=${queue_url}
+        ${mssg}=    Receive Message
+
+        # -------------------------- LOOP VALIDATION --------------------------
+        ${getMessage} =    Evaluate    ${mssg} is None
+        Exit For Loop If    ${getMessage}
+        Log To Console    Inicia Generación factura ${date}
+        Log To Console    Mensaje recibido --- ${mssg}
+
+        ${bodyM}=    Evaluate    json.dumps(${mssg})
+        ${receipt_handle}=    Get value from JSON    ${bodyM}    $.ReceiptHandle
+        Delete Message    receipt_handle=${receipt_handle}
+
+        # CON ESTO SE CREA EL BODY PARA CONSULTAR EL SERVICIO DEL API COMPOSITION
+        ${bodyM}=    Get value from JSON    ${bodyM}    $.Body
+        ${bodyM}=    Evaluate    json.dumps(${bodyM})
+        ${status}=    Get value from JSON    ${bodyM}    $.status
+        ${docToBill}=    Get value from JSON    ${bodyM}    $.user
+        
+        # -------------------------- LOOP VALIDATION --------------------------
+        ${getStatus} =    Evaluate    $status != $STATUS
+        Exit For Loop If    ${getStatus}
+
+        # -------------------------- CONSUME WEBSERVICE --------------------------
+        ${request} =    Set Variable    { ${operation} ${docToBill}}
+        Create Session    httpbin    ${URL_WS}
+        ${resp}=    Post Request    httpbin    ${PATH_WS}    data=${request}
+        ${facturacion}=    Set Variable    ${resp.json()}
+
+        # -------------------------- GENERATE INVOICE --------------------------
+        # PATIENT DATA IN JSON
+        ${name}=     Get value from JSON     ${facturacion}   $.patientData.name
+        ${lastName}=     Get value from JSON     ${facturacion}   $.patientData.lastName
+        ${document}=     Get value from JSON     ${facturacion}   $.patientData.document
+        ${type}=     Get value from JSON     ${facturacion}   $.patientData.type
+        ${address}=     Get value from JSON     ${facturacion}   $.patientData.address
+        # DATA IS NOT IN JSON
+        ${N} =    Create List    NIT    Razon Social    Fecha    Factura de Cobro    -------INFORMACION-    Nombre    Apellido    Documento    Tipo Documento    Direccion    -------TRATAMIENTO-
+        ${V} =    Create List    12345678    ClincaABC    ${date}    ${document}_${date}    -PERSONAL-------    ${name}    ${lastName}    ${document}    ${type}    ${address}    -COSTO-------
+        ${C} =    Create List    .....    .....    .....    .....    .....    .....    .....    .....    .....    .....    -CANTIDAD-
+        
+        # COST DATA IN JSON
+        ${proceduresIds}=     Get values from JSON    ${facturacion}    $.proceduresData.procedures[*].procedureId
+        ${costsIds}=     Get values from JSON    ${facturacion}    $.costData.procedures[*].id
+        ${iterator}=    Set Variable    0
+        ${totalCost}=    Set Variable    0
+        FOR    ${id}    IN    @{proceduresIds}
+            ${costIndex} =    Evaluate    ${costsIds}.index(${id})
+            ${procedure}=     Get value from JSON     ${facturacion}   $.costData.procedures[${costIndex}].procedure
+            ${cost}=     Get value from JSON     ${facturacion}   $.costData.procedures[${costIndex}].value
+            ${quantity}     Get value from JSON     ${facturacion}   $.proceduresData.procedures[${iterator}].quantity
+            # ADD DATA TO LISTS N, V AND C.
+            ${Dict}=    Create Dictionary    Nombre    ${procedure}    Valor    ${cost}
+            Append to List    ${N}    ${procedure}
+            Append to List    ${V}    ${cost}
+            Append to List    ${C}    ..${quantity}..
+            # TOTAL COST
+            ${totalCost}=    Evaluate    ${totalCost} + (${cost} * ${quantity})
+            ${iterator}=    Evaluate    ${iterator} + 1
+        END
+        # APPEND TO LIST LAST ROWS
+        Append to List    ${N}    -------------------    -COSTO--TOTAL-
+        Append to List    ${V}    -------------------    ${totalCost}
+        Append to List    ${C}    -------------------    .....
+        # CREATE TABLE
+        ${InvoiceList} =    Create Dictionary    NOMBRES    ${N}    CANTIDAD    ${C}    VALORES    ${V}
+        ${INVOICE}=    Create table    ${InvoiceList}
+
+        # -------------------------- CONSUME WEBSERVICE --------------------------
+        ${request} =    Set Variable    {${operationSave}{"id":"${document}_${date}", "timestamp":"${date}","state": "generated"}}
+        Create Session    httpbin    ${URL_WS}
+        ${respsave}=    Post Request    httpbin    ${PATH_WS_SAVE}    data=${request}
+        Log to Console    ${respsave}
+
+        # CREATE CSV FILE
+        Write table to CSV    ${INVOICE}    ${file_path}
+        
+        # -------------------------- UPLOAD FILE TO CSV --------------------------
+        Init S3 Client    aws_key_id=${AWS_KEY_ID}    aws_key=${AWS_KEY}
+        Upload File    ${BUCKET_NAME}    ${file_path}    Invoices${/}factura${document}_${date}.csv
+    END
+    Log To Console    No existen mas datos para procesar. ${date}
