@@ -1,10 +1,10 @@
 const repository = require('../persistence/repository/history.repository');
 const service = {};
 
-service.getPatientProcedures = () => {
+service.saveNewRegister = data => {
     return new Promise((resolve, reject) => {
         try {
-            repository.getPatientProcedures().then(res => {
+            repository.saveNewRegister(data).then(res => {
                 resolve(res);
             }).catch(err => {
                 reject(err);

@@ -1,6 +1,6 @@
 const repository = {};
 
-repository.getPatientProcedures = () => {
+repository.saveNewRegister = incomingData => {
     return new Promise((resolve, reject) => {
         try {
             if (process.env.USE_MOCK_DATA === 'true') {
