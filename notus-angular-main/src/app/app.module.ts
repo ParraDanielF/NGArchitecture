@@ -49,6 +49,7 @@ import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { UserDropdownComponent } from "./components/dropdowns/user-dropdown/user-dropdown.component";
 import { ClinicManagerService } from "./services/clinic-manager.service";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -87,7 +88,7 @@ import { HttpClient, HttpClientModule } from "@angular/common/http";
     LandingComponent,
     ProfileComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule ],
   providers: [ClinicManagerService],
   bootstrap: [AppComponent],
 })

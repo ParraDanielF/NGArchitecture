@@ -16,7 +16,6 @@ import { LoginComponent } from "./views/auth/login/login.component";
 import { RegisterComponent } from "./views/auth/register/register.component";
 
 // no layouts views
-import { IndexComponent } from "./views/index/index.component";
 import { LandingComponent } from "./views/landing/landing.component";
 import { ProfileComponent } from "./views/profile/profile.component";
 
@@ -28,7 +27,7 @@ const routes: Routes = [
     children: [
       { path: "dashboard", component: DashboardComponent },
       { path: "settings", component: SettingsComponent },
-      { path: "tables", component: TablesComponent },
+      { path: "getClinicHistory", component: TablesComponent },
       { path: "maps", component: MapsComponent },
       { path: "", redirectTo: "settings", pathMatch: "full" },
     ],
@@ -47,7 +46,6 @@ const routes: Routes = [
   { path: "profile", component: ProfileComponent },
   { path: "landing", component: LandingComponent },
   { path: "", redirectTo: "admin", pathMatch: "full" },
-  { path: "**", redirectTo: "admin", pathMatch: "full" },
 ];
 
 @NgModule({

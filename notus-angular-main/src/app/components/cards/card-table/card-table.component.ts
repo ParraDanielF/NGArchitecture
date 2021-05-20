@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
+import { ClinicManagerService } from "src/app/services/clinic-manager.service";
 
 @Component({
   selector: "app-card-table",
@@ -14,7 +15,17 @@ export class CardTableComponent implements OnInit {
   }
   private _color = "light";
 
-  constructor() {}
 
-  ngOnInit(): void {}
+  private dummieData : string = '';
+
+  constructor(private service : ClinicManagerService) {}
+  ngOnInit(): void {
+  }
+
+
+  myFunnyMethod(){
+    console.log(this.dummieData);
+    //this.service.aws(this.dummieData);
+  }
+
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+
 @Injectable()
 export class ClinicManagerService {
 
@@ -24,5 +25,9 @@ export class ClinicManagerService {
     (err) => {
       console.log("UPS THERE IS A ERROR", err);
     });
+  }
+
+  aws() : void{
+    /** logic goes here */
   }
 }
