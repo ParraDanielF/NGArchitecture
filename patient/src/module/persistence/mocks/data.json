@@ -1,9 +1,0 @@
-{
-    "module" : "patient",
-    "version" : "1.0.0",
-    "name" : "John",
-    "lastName" : "Doe",
-    "document": 123123,
-    "type" : "passport",
-    "address" : "Av 12 # 12 -12"
-}

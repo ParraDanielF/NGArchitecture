@@ -1,5 +1,0 @@
-{
-    "transaction" : "completed",
-    "message" : "was sent the message to the queue to synchronize the data with the clinic history query service db",
-    "result" : "saved"
-}
