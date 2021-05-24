@@ -1,3 +1,5 @@
 {
-    "data" : "custom"
+    "status" : "success",
+    "code" : 201,
+    "message" : "the admission registry wascompleted successfully"
 }

@@ -15,4 +15,18 @@ service.getProcedures = () => {
     });
 };
 
+service.saveProcedure = data => {
+    return new Promise((resolve, reject) => {
+        try {
+            repository.saveProcedure(data).then(res => {
+                resolve(res);
+            }).catch(err => {
+                reject(err);
+            });
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
 module.exports = service;

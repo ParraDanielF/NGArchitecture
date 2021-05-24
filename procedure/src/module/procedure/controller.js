@@ -10,6 +10,16 @@ const getProcedures = () => {
     });
 }
 
+const saveProcedure = data => {
+    return new Promise((resolve, reject) => {
+        service.saveProcedure(data).then(res => {
+            resolve(res);
+        }).catch(err => {
+            reject(err);
+        });
+    });
+}
+
 exports.handler = function (event, context, callback) {
     context.callbackWaitsForEmptyEventLoop = false;
     let methodExecuted = null;
@@ -17,6 +27,9 @@ exports.handler = function (event, context, callback) {
     console.log('[OPERATION]', event.operation);
     if (event.operation === 'getProcedures') {
         methodExecuted = getProcedures();//(event.data);
+    }
+    if (event.operation === 'saveProcedure') {
+        methodExecuted = saveProcedure(event.data);
     }
 
     methodExecuted.then(res => {

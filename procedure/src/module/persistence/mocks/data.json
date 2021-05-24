@@ -1,5 +1,5 @@
 {
-    "module" : "Procedure",
+    "get" : {"module" : "Procedure",
     "version" : "1.0.0",
     "procedures" : [
         {
@@ -18,5 +18,9 @@
             "professionalId" : 1488,
             "quantity" : 1
         }
-    ]
+    ]},
+    "save" : {
+        "message" : "saved successfully",
+        "status" : 200
+    }
 }
