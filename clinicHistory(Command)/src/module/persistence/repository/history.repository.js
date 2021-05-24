@@ -1,7 +1,9 @@
 const repository = {};
+const persistenceImplementationHandler = require('../../lib/dynamoDB/dynamodb.implementation');
+const messageHandler = require('../../lib/SQS/sqs.implementation');
 
 repository.saveNewRegister = incomingData => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async(resolve, reject) => {
         try {
             if (process.env.USE_MOCK_DATA === 'true') {
                 setTimeout(
@@ -10,7 +12,27 @@ repository.saveNewRegister = incomingData => {
                         resolve(data);
                     }, 1000);
             } else {
-                // TODO : Implement db connection use the code in lib/dynamoDB
+                resolve(await persistenceImplementationHandler.create(incomingData));
+            }
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
+
+repository.sendMessage = message => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            if (process.env.USE_MOCK_DATA === 'true') {
+                setTimeout(
+                    function () {
+                        resolve({
+                            status : 'sended',
+                            target : 'synchronization-sqs'
+                        });
+                    }, 1000);
+            } else {
+                resolve(await messageHandler.sendMessage(message))
             }
         } catch (error) {
             reject(error);

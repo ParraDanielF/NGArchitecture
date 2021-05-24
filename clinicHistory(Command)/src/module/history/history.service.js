@@ -2,12 +2,13 @@ const repository = require('../persistence/repository/history.repository');
 const service = {};
 
 service.saveNewRegister = data => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async(resolve, reject) => {
         try {
-            repository.saveNewRegister(data).then(res => {
-                resolve(res);
-            }).catch(err => {
-                reject(err);
+            await repository.saveNewRegister(data);
+            await repository.sendMessage(JSON.stringify(data));
+            resolve({
+                status : 'saved & propagated',
+                code : 200
             });
         } catch (error) {
             reject(error);
