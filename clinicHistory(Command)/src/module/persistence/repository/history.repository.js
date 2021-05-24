@@ -2,17 +2,17 @@ const repository = {};
 const persistenceImplementationHandler = require('../../lib/dynamoDB/dynamodb.implementation');
 const messageHandler = require('../../lib/SQS/sqs.implementation');
 
-repository.saveNewRegister = incomingData => {
+repository.saveNewRegister = ({data, table}) => {
     return new Promise(async(resolve, reject) => {
         try {
             if (process.env.USE_MOCK_DATA === 'true') {
                 setTimeout(
                     function () {
-                        const data = require('../mocks/data.json');
-                        resolve(data);
+                        const dataMock = require('../mocks/data.json');
+                        resolve(dataMock);
                     }, 1000);
             } else {
-                resolve(await persistenceImplementationHandler.create(incomingData));
+                resolve(await persistenceImplementationHandler.create({data, table}));
             }
         } catch (error) {
             reject(error);
@@ -20,7 +20,7 @@ repository.saveNewRegister = incomingData => {
     });
 };
 
-repository.sendMessage = message => {
+/* repository.sendMessage = message => {
     return new Promise(async(resolve, reject) => {
         try {
             if (process.env.USE_MOCK_DATA === 'true') {
@@ -38,6 +38,6 @@ repository.sendMessage = message => {
             reject(error);
         }
     });
-};
+}; */
 
 module.exports = repository;
